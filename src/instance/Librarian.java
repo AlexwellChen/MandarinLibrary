@@ -62,6 +62,18 @@ public class Librarian extends User {
 	public void editRecord(String recordId,String title,String content) {
 		
 	}
+	
+	public void addAnnouncement(String textId, String text){
+		
+	}
+	
+	public void editAnnouncement(String targetTextId, String changeText){
+		
+	}
+	
+	public void deleteAnnouncement(String targetTextId){
+		
+	}
 	@Override
 	public String toString() {
 		return "Librarian [toString()=" + super.toString() + "]";
