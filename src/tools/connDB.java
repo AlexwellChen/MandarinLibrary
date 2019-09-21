@@ -1,6 +1,6 @@
 /*
- * Á¬½ÓÊı¾İ¿âÊ¹ÓÃµ¥ÀıÄ£Ê½È·±£Á¬½Ó°²È«
- * @function getConnection¿ÉÒÔ·µ»ØÒ»¸öÓëÊı¾İ¿âÁ¬½ÓµÄConnection
+ * è¿æ¥æ•°æ®åº“ä½¿ç”¨å•ä¾‹æ¨¡å¼ç¡®ä¿è¿æ¥å®‰å…¨
+ * @function getConnectionå¯ä»¥è¿”å›ä¸€ä¸ªä¸æ•°æ®åº“è¿æ¥çš„Connection
  */
 package tools;
 
@@ -20,7 +20,7 @@ import com.mysql.jdbc.*;
 
 public class connDB {
 	private static connDB instance = new connDB();
-	//µ¥ÀıÄ£Ê½µÄÊµÏÖ
+	//å•ä¾‹æ¨¡å¼çš„å®ç°
 	private connDB(){
 		
 	}
@@ -43,14 +43,14 @@ public class connDB {
 	public Connection getConnection() throws IOException, InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
 		
         InputStream in=getClass().getClassLoader().getResourceAsStream("tools/sql.properties");
-        String jdbcDriver = null;//Êı¾İ¿âÇı¶¯  
-        String jdbcUrl=null;//Êı¾İ¿âÁ¬½Ó
-        String jdbcName=null;//Êı¾İ¿âÃû
-        String USERNAME=null;//Êı¾İ¿âÓÃ»§Ãû
-        String PASSWORD=null;//Êı¾İ¿âÃÜÂë
+        String jdbcDriver = null;//æ•°æ®åº“é©±åŠ¨  
+        String jdbcUrl=null;//æ•°æ®åº“è¿æ¥
+        String jdbcName=null;//æ•°æ®åº“å
+        String USERNAME=null;//æ•°æ®åº“ç”¨æˆ·å
+        String PASSWORD=null;//æ•°æ®åº“å¯†ç 
         Properties properties=new Properties();
         properties.load(in);
-        //¡ı´Ósql.propertiesÎÄ¼şÖĞ¶ÁÈ¡ĞÅÏ¢
+        //â†“ä»sql.propertiesæ–‡ä»¶ä¸­è¯»å–ä¿¡æ¯
         jdbcDriver=properties.getProperty("DRIVER");
         jdbcUrl=properties.getProperty("URL");
         jdbcName=properties.getProperty("DBNAME");

@@ -11,7 +11,7 @@ import java.sql.Statement;
 
 /**
  * @author ALEXWELL
- * AdminÀà£¬ÓÃÀ´ÊµÏÖ³¬¹ÜµÄ¸÷Ïî¹¦ÄÜ
+ * Adminç±»ï¼Œç”¨æ¥å®ç°è¶…ç®¡çš„å„é¡¹åŠŸèƒ½
  */
 public class Admin extends User {
 
@@ -21,7 +21,7 @@ public class Admin extends User {
 	
 	public void registerLibrarian(String acntNum, String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
 		Connection conn = LibraryAutomation.getInstance().dbInterface();      
-        String sql = "INSERT INTO librarian "+"VALUES (?,?)";//SQLÓï¾ä
+        String sql = "INSERT INTO librarian "+"VALUES (?,?)";//SQLè¯­å¥
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, acntNum);		
         pstmt.setString(2, password);			
@@ -29,25 +29,25 @@ public class Admin extends User {
         System.out.println("success");
 
 	}
-	//²éÑ¯LibrarianÕËºÅÒÔ¼°ÃÜÂë
+	//æŸ¥è¯¢Librarianè´¦å·ä»¥åŠå¯†ç 
 	public Librarian searchLibrarian(String acntNum) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{		
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		String sql = "SELECT password FROM librarian where AcntNum = "+acntNum;//SQLÓï¾ä
+		String sql = "SELECT password FROM librarian where AcntNum = "+acntNum;//SQLè¯­å¥
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
         String password = rs.getString("Password");
         Librarian newLibrarian = new Librarian(acntNum, password);
 		return newLibrarian;
 	}
-	//¸ü¸Ä¸ø¶¨librarianµÄÃÜÂë
+	//æ›´æ”¹ç»™å®šlibrariançš„å¯†ç 
 	public void editLibrarianPassword(String acntNum, String newPassword) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		String sql = "UPDATE librarian SET Password = "+newPassword+" where AcntNum = "+acntNum;//SQLÓï¾ä
+		String sql = "UPDATE librarian SET Password = "+newPassword+" where AcntNum = "+acntNum;//SQLè¯­å¥
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.executeUpdate();
         System.out.println("success");
 	}
-	//É¾³ı¸ø¶¨ÕËºÅµÄLibrarianÕËºÅ
+	//åˆ é™¤ç»™å®šè´¦å·çš„Librarianè´¦å·
 	public void deleteLibrarian(String acntNum) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
 		String sql = "DELETE from librarian where acntNum = "+acntNum;
@@ -59,15 +59,15 @@ public class Admin extends User {
 	public void recoveryLibrarian(String acntNum){
 		//don't understand this function XD
 	}
-	//¸ü¸Ä·£¿î½ğ¶î
+	//æ›´æ”¹ç½šæ¬¾é‡‘é¢
 	public void setFineValue(int fineValue){
 		LibraryAutomation.getInstance().setBookFineValue(fineValue);
 	}
-	//¸ü¸Ä¹é»¹ÈÕÆÚ
+	//æ›´æ”¹å½’è¿˜æ—¥æœŸ
 	public void setReturnPeriod(int newPeriod){
 		LibraryAutomation.getInstance().setBookReturnPeriod(newPeriod);
 	}
-	//¸ü¸ÄÑº½ğ½ğ¶î
+	//æ›´æ”¹æŠ¼é‡‘é‡‘é¢
 	public void setSecurityDeposit(int newDeposit){
 		LibraryAutomation.getInstance().setReaderSecurityDeposit(newDeposit);
 	}
@@ -77,7 +77,7 @@ public class Admin extends User {
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
 	}
-	//Çı¶¯²âÊÔÀà
+	//é©±åŠ¨æµ‹è¯•ç±»
 	public static void main(String[] args){
 		
 	}

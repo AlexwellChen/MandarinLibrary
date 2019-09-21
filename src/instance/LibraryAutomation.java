@@ -2,7 +2,9 @@ package instance;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import obj.*;
 import tools.*;
@@ -19,7 +21,16 @@ public class LibraryAutomation {
 	private LibraryAutomation(){
 		
 	}
-
+	
+	
+	public static LibraryAutomation getInstance() {
+		if(instance == null){
+				instance = new LibraryAutomation();
+		}
+		return instance;
+	}
+	
+	
 	public int getBookFineValue() {
 		return bookFineValue;
 	}
@@ -50,21 +61,14 @@ public class LibraryAutomation {
 	}
 
 
-	public static LibraryAutomation getInstance() {
-		if(instance == null){
-				instance = new LibraryAutomation();
-		}
-		return instance;
-	}
+
 	
 	public Connection dbInterface() throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
 		connDB myconn = connDB.getInstance();
 		return myconn.getConnection();
 	}
 	
-	public void addBook(){
-		
-	}
+
 	
 	public Book searchBook(String bookId){
 		Book newBook = null;
@@ -75,8 +79,23 @@ public class LibraryAutomation {
 		
 	}
 	
-	public void login(){
-		
+	public boolean login(String acntNum, String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
+		Connection conn = LibraryAutomation.getInstance().dbInterface();
+		String sql = "SELECT count(*) num FROM librarian where AcntNum="+acntNum;//SQL语句
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		if(rs.next()) {
+			if(rs.getInt("num")==1) {
+				sql = "SELECT password FROM librarian where AcntNum = "+acntNum;//SQL语句
+				rs = stmt.executeQuery(sql);
+				if(rs.next()) {
+					if(rs.getString("Password").equals(password)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	public void logout(){
