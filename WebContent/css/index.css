@@ -1,0 +1,134 @@
+body{
+background:none;
+width: 100vw;
+margin: 0;
+padding: 0;
+overflow-x: hidden;
+}
+.background{
+    position: absolute;
+    width:100vw;
+    height:70vh;
+    left:0;
+    top:15vh;
+    z-index: 0;
+    float: top;
+}
+.login{
+    text-align: center;
+    width:33vw;
+    height:50vh;
+    position: absolute;
+    left: 62vw;
+    top: 25vh;
+    z-index: 1;
+    background: rgb(236, 233, 250,0.9);
+    border-radius: 1.5vw;
+    box-shadow: 0px 3px 24px 0px rgba(48, 221, 126, 0.5);
+    font-size: 2vh;
+}
+.logina{
+   color: rgb(30, 141, 206);
+   text-decoration:none;
+}
+.logina:hover{
+  text-decoration: underline;
+ }
+.title{
+    position: absolute;
+    width:33vw;
+    top:4vh;
+    height:6vh;
+    text-align: center;
+    line-height: 6vh;
+    color:black;
+    font-weight: bold;
+}
+.inputArea{
+    height:6vh;
+    position: relative;
+    margin-left: 4vw;
+    margin-top:4vh;
+    float: bottom;
+    width:25vw;
+    border: grey 0.1vh solid;
+    border-radius: 1.5vh;
+    background:none;
+}
+.inputArea:hover{
+    border: red 0.1vh solid;
+}
+.inputbar{
+    border-radius: 1.5vh;
+    height:6vh;
+    position: absolute;
+    left:0;
+    top:0;
+    width:25vw;
+    border: none;
+    outline: none;
+    background:rgb(203, 203, 231);
+   z-index: 999;
+   font-family: 'Times New Roman';
+   font-size: 2.5vh;
+   line-height: 5vh;
+   color:black;
+   padding: 0;
+   text-indent: 1vw;
+}
+
+.loginbar{
+    height:6vh;
+    position: relative;
+    margin-left: 4vw;
+    margin-top:4vh;
+    width:25vw;
+    border-radius: 3vh;
+    background:rgb(56, 56, 214);
+    color: white;
+    text-align: center;
+    line-height: 6vh;
+    font-family: 'Times New Roman';
+}
+.loginbar:hover{
+    background: rgb(45, 196, 40);
+}
+.login_1{
+    font-size: 2vh;
+    font-family: "Microsoft YaHei UI";
+    color: rgb(254, 254, 254);
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    /* background:red; */
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.header{
+    position: absolute;
+    width:100vw;
+    height:15vh;
+    left:0;
+    top:0;
+    z-index: 99;
+    background: #FBFEFE;
+    line-height: 15vh;
+    font-size: 8vh;
+    color: rgb(30, 141, 206);
+    font-family: 'Times New Roman';
+    text-align: left;
+    font-weight: bolder;
+}
+.footer{
+    font-size: 2vh;
+    width:100vw;
+    height:15vh;
+    text-align: center;
+    background:#FBFEFE;
+    z-index: 0;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: -15vh;
+}
