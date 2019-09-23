@@ -26,7 +26,7 @@ public class Librarian extends User {
 	public void addBook(String bookId,String bookName,String press,String price,String position,String ISBN,String lentStatus,String reserveStatus,String category) 
 			throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		 String sql = "INSERT INTO book VALUES ("+"'"+bookId+"'"+","+"'"+bookName+"'"+","+"'"+press+"'"+","+"'"+price+"'"+","+"'"+position+"'"+","+"'"+ISBN+"'"+","+"'"+lentStatus+"'"+","+"'"+reserveStatus+"'"+","+"'"+category+"'"+")";//SQL语句
+		 	String sql = "INSERT INTO book VALUES ("+"'"+bookId+"'"+","+"'"+bookName+"'"+","+"'"+press+"'"+","+"'"+price+"'"+","+"'"+position+"'"+","+"'"+ISBN+"'"+","+"'"+lentStatus+"'"+","+"'"+reserveStatus+"'"+","+"'"+category+"'"+")";//SQL语句
 	        PreparedStatement pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, bookId);		
 	        pstmt.setString(2, bookName);

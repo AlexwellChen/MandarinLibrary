@@ -26,7 +26,7 @@ create table reader(
 	AcntNum varchar(20) not null,
     Password varchar(20) not null,
     Email varchar(20) not null,
-    bookNumber int not null,
+    bookNumber int not null, --count lent books (max 3)
     PRIMARY KEY(AcntNum)
 );
 
@@ -47,3 +47,10 @@ create table announcement(
     Text varchar(1024) not null,
     PRIMARY KEY(TextId)
 );
+
+create table finevalue(
+	recordId varchar(20) not null,
+	bookId varchar(20) not null,
+	acntNumber varchar(20) not null,
+	PRIMARY KEY(recordId)
+); 
