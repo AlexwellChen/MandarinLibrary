@@ -81,12 +81,12 @@ public class Admin extends User {
 	//登录
 	public boolean login(String acntNum, String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		String sql = "SELECT count(*) num FROM Admin where AcntNum="+acntNum;//SQL语句
+		String sql = "SELECT count(*) num FROM admin where AcntNum="+acntNum;//SQL语句
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 		if(rs.next()) {
 			if(rs.getInt("num")==1) {
-				sql = "SELECT password FROM Admin where AcntNum = "+acntNum;//SQL语句
+				sql = "SELECT password FROM admin where AcntNum = "+acntNum;//SQL语句
 				rs = stmt.executeQuery(sql);
 				if(rs.next()) {
 					if(rs.getString("Password").equals(password)) {
