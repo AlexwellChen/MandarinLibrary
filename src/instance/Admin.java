@@ -58,6 +58,7 @@ public class Admin extends User {
 	
 	public void recoveryLibrarian(String acntNum){
 		//don't understand this function XD
+				
 	}
 	//更改罚款金额
 	public void setFineValue(int fineValue){
@@ -77,6 +78,26 @@ public class Admin extends User {
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 				+ "]";
 	}
+	//登录
+	public boolean login(String acntNum, String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
+		Connection conn = LibraryAutomation.getInstance().dbInterface();
+		String sql = "SELECT count(*) num FROM Admin where AcntNum="+acntNum;//SQL语句
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		if(rs.next()) {
+			if(rs.getInt("num")==1) {
+				sql = "SELECT password FROM Admin where AcntNum = "+acntNum;//SQL语句
+				rs = stmt.executeQuery(sql);
+				if(rs.next()) {
+					if(rs.getString("Password").equals(password)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 	//驱动测试类
 	public static void main(String[] args){
 		
