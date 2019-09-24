@@ -24,8 +24,7 @@
 
 <form  name="account" method="post" action="test.jsp">
 
-    <input type="text" name="poster" value="account" style="position:absolute;display:none"/>
-    
+    <input type="text" name="poster" value="account" style="position:absolute;display:none"/>   
     <div class="login">
         <div class="title">
                 <a style="font-size:3vh;" >login</a>

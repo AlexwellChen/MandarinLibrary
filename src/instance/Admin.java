@@ -18,10 +18,10 @@ public class Admin extends User {
 	public Admin(String acntNum, String password){
 		super(acntNum, password, "Admin");
 	}
-	
-	public void registerLibrarian(String acntNum, String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
+	//注册Librarian账号
+	public static void registerLibrarian(String acntNum, String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
 		Connection conn = LibraryAutomation.getInstance().dbInterface();      
-        String sql = "INSERT INTO librarian "+"VALUES (?,?)";//SQL语句
+        String sql = "INSERT INTO librarian (AcntNum,Password)"+"VALUES (?,?)";//SQL语句
         PreparedStatement pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, acntNum);		
         pstmt.setString(2, password);			
@@ -32,7 +32,7 @@ public class Admin extends User {
 	//查询Librarian账号以及密码
 	public Librarian searchLibrarian(String acntNum) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{		
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		String sql = "SELECT password FROM librarian where AcntNum = "+acntNum;//SQL语句
+		String sql = "SELECT password FROM librarian where AcntNum = '"+acntNum+"'";//SQL语句
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
         String password = rs.getString("Password");
@@ -40,18 +40,19 @@ public class Admin extends User {
 		return newLibrarian;
 	}
 	//更改给定librarian的密码
-	public void editLibrarianPassword(String acntNum, String newPassword) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
+	public static void editLibrarianPassword(String acntNum, String newPassword) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		String sql = "UPDATE librarian SET Password = "+newPassword+" where AcntNum = "+acntNum;//SQL语句
+		String sql = "UPDATE librarian SET Password = '"+newPassword+"'"+" where AcntNum = '"+acntNum+"'";//SQL语句
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.executeUpdate();
         System.out.println("success");
 	}
 	//删除给定账号的Librarian账号
-	public void deleteLibrarian(String acntNum) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
+	public static void deleteLibrarian(String acntNum) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		String sql = "DELETE from librarian where acntNum = "+acntNum;
+		String sql = "DELETE from librarian where AcntNum = '"+acntNum+"'";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
+		System.out.println(sql);
 		pstmt.executeUpdate();
         System.out.println("success");		
 	}
@@ -81,12 +82,12 @@ public class Admin extends User {
 	//登录
 	public static boolean login(String acntNum, String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		String sql = "SELECT count(*) num FROM admin where AcntNum="+acntNum;//SQL语句
+		String sql = "SELECT count(*) num FROM admin where AcntNum = '"+acntNum+"'";//SQL语句
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 		if(rs.next()) {
 			if(rs.getInt("num")==1) {
-				sql = "SELECT password FROM admin where AcntNum = "+acntNum;//SQL语句
+				sql = "SELECT password FROM admin where AcntNum = '"+acntNum+"'";//SQL语句
 				rs = stmt.executeQuery(sql);
 				if(rs.next()) {
 					if(rs.getString("Password").equals(password)) {
@@ -99,7 +100,26 @@ public class Admin extends User {
 	}
 	
 	//驱动测试类
-	public static void main(String[] args){
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
+		//测试数据 账号admin 密码cfz990221
+	/*	if(login("admin","cfz990221"))
+		{
+			System.out.println("Success");
+		}
+		else
+			System.out.println("Fail");
+		登录测试通过
+	*/
+		//Librarian测试 账号librarianTest 密码test
+		
+		//registerLibrarian测试 (通过)
+		//Admin.registerLibrarian("librarianTest", "test");
+		
+		//editLibrarianPassword测试 (通过)
+		//Admin.editLibrarianPassword("librarianTest", "newTest");
+		
+		//deleteLibrarian测试 (通过)
+		//Admin.deleteLibrarian("librarianTest");
 		
 	}
 }
