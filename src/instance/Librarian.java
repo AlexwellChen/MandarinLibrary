@@ -78,22 +78,33 @@ public class Librarian extends User {
 	        pstmt.executeUpdate();
 	        System.out.println("success");
 	}
-	public String viewBorrowRecords(String recordId) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException {
+	public Vector<String> viewBorrowRecords() throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException {
+		Vector<String> borrowRecords=new Vector<String>();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//显示2017-10-27格式
+		String borrowRecord=null;
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		String sql = "select bookId bookName AcntNum from Book reader record where record.AcntNum=reader.AcntNum and "
-				+ "record.BookName =Book.BookName and record.recordId="+recordId ;//SQL语句
+		String sql = "select * from bookrecord" ;//SQL语句
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
-        System.out.println("success");
-        
-		String borrowRecords= rs.getString("bookId");
-		 borrowRecords+=rs.getString("bookName");
-		 borrowRecords+=rs.getString("acntNum");
+        while(rs.next()) {
+        	//BorrowDate为null如何解决
+        	borrowRecord = rs.getString("bookId")+'\t'+rs.getString("acntnum")+'\t'+sdf.format(rs.getDate("lendDate"))+'\t'+sdf.format(rs.getDate("ReturnDate"));
+        	borrowRecords.addElement(borrowRecord);
+        }
 		return borrowRecords; 
 	}
-	public String viewFineRecords(String recordId) {
-		String FineRecords= new String();
-		
+	public Vector<String> viewFineRecords(String recordId) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException {
+		Vector<String> FineRecords = new Vector<String>();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//显示2017-10-27格式
+		String FineRecord=null;
+		Connection conn = LibraryAutomation.getInstance().dbInterface();
+		String sql = "select AcntNum,sum(FineValue) finetatal,ReturnDate from BookRecord where FineValue!=0 and ReturnDate is not null";
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) { 
+        	FineRecord= rs.getString("AcntNum")+'\t'+rs.getString("finetatal")+'\t'+sdf.format(rs.getDate("LendDate"))+'\t'+sdf.format(rs.getDate("ReturnDate"));
+        	FineRecords.addElement(FineRecord);
+        }
 		return FineRecords;
 	}
 	public boolean lendBook(String acntNum,String bookId) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException {
@@ -136,7 +147,7 @@ public class Librarian extends User {
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next()) 
 		{
-			inf=sdf.format(rs.getDate("registerDate"))+'\r'+rs.getString("AcntNum")+'\r'+rs.getInt("Deposit");
+			inf=sdf.format(rs.getDate("registerDate"))+'\t'+rs.getString("AcntNum")+'\t'+rs.getInt("Deposit");
 			totalDepositInf.addElement(inf);
 			totalDeposit+=rs.getInt("Deposit");
 		}
@@ -156,7 +167,7 @@ public class Librarian extends User {
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next())
 		{
-			inf=sdf.format(rs.getDate("fineDate"))+'\r'+rs.getString("AcntNum")+'\r'+rs.getInt("fineRecord");
+			inf=sdf.format(rs.getDate("fineDate"))+'\t'+rs.getString("AcntNum")+'\t'+rs.getInt("fineRecord");
 			totalFineInf.addElement(inf);
 			totalFine+=rs.getInt("fineRecord");
 		}
@@ -181,6 +192,24 @@ public class Librarian extends User {
 	@Override
 	public String toString() {
 		return "Librarian [toString()=" + super.toString() + "]";
+	}
+	public boolean login(String acntNum, String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
+		Connection conn = LibraryAutomation.getInstance().dbInterface();
+		String sql = "SELECT count(*) num FROM Librarian where AcntNum="+acntNum;//SQL语句
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		if(rs.next()) {
+			if(rs.getInt("num")==1) {
+				sql = "SELECT password FROM Librarian where AcntNum = "+acntNum;//SQL语句
+				rs = stmt.executeQuery(sql);
+				if(rs.next()) {
+					if(rs.getString("Password").equals(password)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 }

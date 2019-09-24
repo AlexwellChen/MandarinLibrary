@@ -15,9 +15,9 @@ create table book(
 -- insert into `bookrecord` VALUE('1',12,'1221-2-2 23:11;11','1222-1-1 2:11;11','2','0001');
 create table bookrecord(
 	informationId varchar(20) not null,
-    FineValue int,
+    FineValue int not null,
     LentDate DATETIME not null,
-    ReturnDate DATETIME,
+    ReturnDate DATETIME not null,
     BookId varchar(20) not null,
     AcntNum varchar(20) not null,
     PRIMARY KEY (informationId)
@@ -48,7 +48,7 @@ create table reader(
     Password varchar(20) not null,
     Email varchar(20) not null,
     bookNumber int not null,
-    registerDate DATETIME not null,
+    registerDate  DATETIME not null,
     Deposit int not null,
     PRIMARY KEY(AcntNum)
 );
@@ -97,7 +97,3 @@ references reader(`acntnum`) on update cascade on delete CASCADE;
 alter table reserve
 add constraint book_reserve foreign key (`bookId`)
 references book(`bookId`) on update cascade on delete CASCADE;
-
-
--- ALTER  TABLE 表名 MODIFY COLUMN 字段名 新数据类型 新类型长度  新默认值  新注释; -- COLUMN可以省略
--- alter  table bookrecord modify  column returndate  datetime 
