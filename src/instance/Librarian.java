@@ -80,7 +80,7 @@ public class Librarian extends User {
 	}
 	public String viewBorrowRecords(String recordId) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException {
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		String sql = "select bookId bookName AcntNum from Book reader record where record.AcntNum=reader.AcntNum and "
+		String sql = "select bookId,bookName,AcntNum from Book,reader,record where record.AcntNum=reader.AcntNum and "
 				+ "record.BookName =Book.BookName and record.recordId="+recordId ;//SQL语句
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
@@ -91,9 +91,16 @@ public class Librarian extends User {
 		 borrowRecords+=rs.getString("acntNum");
 		return borrowRecords; 
 	}
-	public String viewFineRecords(String recordId) {
-		String FineRecords= new String();
-		
+	public Vector<String> viewFineRecords(String recordId) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException {
+		Vector<String> FineRecords = new Vector<String>();
+		Connection conn = LibraryAutomation.getInstance().dbInterface();
+		String sql = "select AcntNum,Fin from Book,reader,record where record.AcntNum=reader.AcntNum and "
+				+ "record.BookName =Book.BookName and record.recordId="+recordId ;//SQL语句
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()) {
+        	String FineRecord= rs.getString("bookName")+'\r'+rs.getString("AcntNum")+'\r'+rs.getString("AcntNum");
+        }
 		return FineRecords;
 	}
 	public boolean lendBook(String acntNum,String bookId) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException {
@@ -181,6 +188,24 @@ public class Librarian extends User {
 	@Override
 	public String toString() {
 		return "Librarian [toString()=" + super.toString() + "]";
+	}
+	public boolean login(String acntNum, String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
+		Connection conn = LibraryAutomation.getInstance().dbInterface();
+		String sql = "SELECT count(*) num FROM Librarian where AcntNum="+acntNum;//SQL语句
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		if(rs.next()) {
+			if(rs.getInt("num")==1) {
+				sql = "SELECT password FROM Librarian where AcntNum = "+acntNum;//SQL语句
+				rs = stmt.executeQuery(sql);
+				if(rs.next()) {
+					if(rs.getString("Password").equals(password)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 }
