@@ -22,7 +22,7 @@
 
 <!-- 将test.jsp改为处理 管理员 登录的文件。传递参数：用户名username , 密码psd -->
 
-<form  name="account" method="post" action="test.jsp">
+<form  name="account" method="post" action="adminLogin.jsp">
 
     <input type="text" name="poster" value="account" style="position:absolute;display:none"/>
     

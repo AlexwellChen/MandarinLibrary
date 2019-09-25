@@ -8,17 +8,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%
+	<% //测试通过
 		String acntName = new String(request.getParameter("username").getBytes("ISO-8859-1"),"UTF-8");//用户名
 		String pwd = new String(request.getParameter("psd").getBytes("ISO-8859-1"),"UTF-8");//密码
 		Boolean login = Admin.login(acntName,pwd);
 		if(login)
 		{
-			//成功跳转主页
+			
+			response.sendRedirect("administrator/administrator.jsp");
 		}
 		else
 		{
-			//失败返回登录界面
+			String script = "<script>alert('用户名或密码错误，请重新登陆');location.href='index.jsp'</script>";
+			response.getWriter().println(script);
 		}
 	 %>
 </body>
