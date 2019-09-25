@@ -20,15 +20,12 @@
 
     <!-- 登录 -->
 
-<!-- 将test.jsp改为处理登录的文件。传递参数：用户名username , 密码psd 
-...............更新
-增加了role属性，用于判断登录的角色
-role的值：reader 或 librarian
--->
+<!-- 将test.jsp改为处理 管理员 登录的文件。传递参数：用户名username , 密码psd -->
 
 <form  name="account" method="post" action="test.jsp">
 
-    <input type="text" name="poster" value="account" style="position:absolute;display:none"/>   
+    <input type="text" name="poster" value="account" style="position:absolute;display:none"/>
+    
     <div class="login">
         <div class="title">
                 <a style="font-size:3vh;" >login</a>
@@ -40,9 +37,8 @@ role的值：reader 或 librarian
         <div class="inputArea">
             <input type="password" name="psd" placeholder=" please input your password" class="inputbar" id="psd">
         </div>
-        <input type="radio" name="role" value="reader" style="margin-top:2vh" checked>reader</input>
-         <input type="radio" name="role" value="librarian">librarian</input>
-        <div class="loginbar" id="loginbar"  onclick="sel()" style="margin-top:2vh">
+
+        <div class="loginbar" id="loginbar"  onclick="sel()">
             <a   class="login_1">login</a>
         </div>
         <br>
@@ -57,12 +53,11 @@ role的值：reader 或 librarian
 	 document.account.submit();
  }
  $(function(){
+	 $('#title').html("&nbsp;&nbsp;&nbsp;&nbsp; administrator login")
+	 $('.header').css({"text-align":"center"})
 	 $('.header').css({
 			"display":"block"
 		});
-	$('#search').css({
-		"display":"block"
-	});
  })
 </script>
 </html>
