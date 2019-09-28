@@ -1,195 +1,229 @@
-body{
-background:none;
-width: 100vw;
-margin: 0;
-padding: 0;
-overflow-x: hidden;
+body {
+	background: none;
+	width: 100vw;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
 }
-a{
-	font-size:2vh;
+
+a {
+	font-size: 2vh;
 }
-.background{
-    position: absolute;
-    width:100vw;
-    height:70vh;
-    left:0;
-    top:15vh;
-    z-index: 0;
-    float: top;
-    padding:0;
-}
-.login{
-    text-align: center;
-    width:33vw;
-    height:50vh;
-    position: absolute;
-    left: 62vw;
-    top: 25vh;
-    z-index: 1;
-    background: rgb(236, 233, 250,0.9);
-    border-radius: 1.5vw;
-    box-shadow: 0px 3px 24px 0px rgba(48, 221, 126, 0.5);
-    font-size: 2vh; 
-}
-.logina{
-   font-size: 2.3vh; 
-   color: rgb(30, 141, 206);
-   text-decoration:none;
-   transition-duration:0.05s; 
-}
-.logina:hover{
-  transition-duration:0.25s;
-  text-decoration: underline;
-  color:red;
-  font-weight:bolder;
-   font-size: 2.5vh;
+html::-webkit-scrollbar {
+ /*滚动条整体样式*/
+ width : 10px;  /*高宽分别对应横竖滚动条的尺寸*/
+ height: 1px;
  }
-.title{
-    position: absolute;
-    width:33vw;
-    top:4vh;
-    height:6vh;
-    text-align: center;
-    line-height: 6vh;
-    color:black;
-    font-weight: bold;
-     pointer-events:none;
-}
-.inputArea{
-    height:6vh;
-    position: relative;
-    margin-left: 4vw;
-    margin-top:4vh;
-    float: bottom;
-    width:25vw;
-    border: grey 0.1vh solid;
-    border-radius: 1.5vh;
-    background:none;
-}
-.inputArea:hover{
-    border: red 0.1vh solid;
-}
-.inputbar{
-    border-radius: 1.5vh;
-    height:6vh;
-    position: absolute;
-    left:0;
-    top:0;
-    width:25vw;
-    border: none;
-    outline: none;
-    background:rgb(203, 203, 231);
-   z-index: 999;
-   font-family: 'Times New Roman';
-   font-size: 2.5vh;
-   line-height: 5vh;
-   color:black;
-   padding: 0;
-   text-indent: 1vw;
+html::-webkit-scrollbar-thumb {
+ /*滚动条里面小方块*/
+ border-radius   : 10px;
+ background-color:#CD6E74;
+ }
+html::-webkit-scrollbar-track {
+ /*滚动条里面轨道*/
+ box-shadow   : inset 0 0 5px rgb(100,0,0, 0.2);
+ background   : rgb(200,200,200,0.3);
+ border-radius: 10px;
+ }
+
+.background {
+	position: absolute;
+	width: 100vw;
+	height: 70vh;
+	left: 0;
+	top: 15vh;
+	z-index: 0;
+	float: top;
+	padding: 0;
 }
 
-.loginbar{
-    height:6vh;
-    position: relative;
-    margin-left: 4vw;
-    margin-top:4vh;
-    width:25vw;
-    border-radius: 3vh;
-    background:rgb(56, 56, 214);
-    color: white;
-    text-align: center;
-    line-height: 6vh;
-    font-family: 'Times New Roman';
-}
-.loginbar:hover{
-    background: rgb(45, 196, 40);
-}
-.login_1{
-    font-size: 2vh;
-    font-family: "Microsoft YaHei UI";
-    color: rgb(254, 254, 254);
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-    /* background:red; */
-    display: block;
-    width: 100%;
-    height: auto;
+.login {
+	text-align: center;
+	width: 33vw;
+	height: 50vh;
+	position: absolute;
+	left: 62vw;
+	top: 25vh;
+	z-index: 1;
+	background: rgb(236, 233, 250, 0.9);
+	border-radius: 1.5vw;
+	box-shadow: 0px 3px 24px 0px rgba(48, 221, 126, 0.5);
+	font-size: 2vh;
 }
 
-.header{
-    position: absolute;
-    width:100vw;
-    height:15vh;
-    left:0;
-    top:0;
-    z-index: 9;
-    background: #FBFEFE;
-
-}
-.footer{
-    font-size: 2vh;
-    width:100vw;
-    height:15vh;
-    text-align: center;
-    background:#FBFEFE;
-    z-index: 0;
-    position: absolute;
-    bottom: 0;
-    margin-bottom: -15vh;
-    padding:0;
-    pointer-events:none;
+.logina {
+	font-size: 2.3vh;
+	color: rgb(30, 141, 206);
+	text-decoration: none;
+	transition-duration: 0.05s;
 }
 
-.list{
-text-align:center;
-margin-left:10vw;
-margin-top:2vh;
-}
-.list a{
-	text-decoration:none;
-	color:black;
-	font-size:2vh;
-	
-}
-.bm table{
-    border-collapse: collapse;
-}
-.bm table tbody{
-     border:0.5vh gold solid ;
-}
-.book{
-	background:#61B781;
+.logina:hover {
+	transition-duration: 0.25s;
+	text-decoration: underline;
+	color: red;
+	font-weight: bolder;
+	font-size: 2.5vh;
 }
 
-.name a{
-	font-size:4vh;
-	font-family:'Times New Roman';
-	margin-left:1.5vw;
-	color:white;
-}
-.book td{
-height: 5vh;
-width:30vw;
-}
-.book .name{
-font-weight:bold;
-text-align:left;
-letter-spacing:0.1vw;
-
-}
-.book .author{
-text-align:left;
-letter-spacing:0.3vw;
-}
-.author a{
-	margin-left:3vw;
+.title {
+	position: absolute;
+	width: 33vw;
+	top: 4vh;
+	height: 6vh;
+	text-align: center;
+	line-height: 6vh;
+	color: black;
+	font-weight: bold;
+	pointer-events: none;
 }
 
-.book .category{
-letter-spacing:0.2vw;
+.inputArea {
+	height: 6vh;
+	position: relative;
+	margin-left: 4vw;
+	margin-top: 4vh;
+	float: bottom;
+	width: 25vw;
+	border: grey 0.1vh solid;
+	border-radius: 1.5vh;
+	background: none;
 }
-#menu a {
+
+.inputArea:hover {
+	border: red 0.1vh solid;
+}
+
+.inputbar {
+	border-radius: 1.5vh;
+	height: 6vh;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 25vw;
+	border: none;
+	outline: none;
+	background: rgb(203, 203, 231);
+	z-index: 999;
+	font-family: 'Times New Roman';
+	font-size: 2.5vh;
+	line-height: 5vh;
+	color: black;
+	padding: 0;
+	text-indent: 1vw;
+}
+
+.loginbar {
+	height: 6vh;
+	position: relative;
+	margin-left: 4vw;
+	margin-top: 4vh;
+	width: 25vw;
+	border-radius: 3vh;
+	background: rgb(56, 56, 214);
+	color: white;
+	text-align: center;
+	line-height: 6vh;
+	font-family: 'Times New Roman';
+}
+
+.loginbar:hover {
+	background: rgb(45, 196, 40);
+}
+
+.login_1 {
+	font-size: 2vh;
+	font-family: "Microsoft YaHei UI";
+	color: rgb(254, 254, 254);
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	/* background:red; */
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.header {
+	position: absolute;
+	width: 100vw;
+	height: 15vh;
+	left: 0;
+	top: 0;
+	z-index: 9;
+	background: #FBFEFE;
+}
+
+.footer {
+	font-size: 2vh;
+	width: 100vw;
+	height: 15vh;
+	text-align: center;
+	background: #FBFEFE;
+	z-index: 0;
+	position: absolute;
+	bottom: 0;
+	margin-bottom: -15vh;
+	padding: 0;
+	pointer-events: none;
+}
+
+.list {
+	text-align: center;
+	margin-left: 10vw;
+	margin-top: 2vh;
+}
+
+.list a {
+	text-decoration: none;
+	color: black;
+	font-size: 2vh;
+}
+
+.bm table {
+	border-collapse: collapse;
+}
+
+.bm table tbody {
+	border: 0.1vh gold solid;
+}
+
+.book {
+	background: #61B781;
+}
+
+.name a {
+	font-size: 4vh;
+	font-family: 'Times New Roman';
+	margin-left: 1.5vw;
+	color: white;
+}
+
+.book td {
+	height: 5vh;
+	width: 30vw;
+}
+
+.book .name {
+	font-weight: bold;
+	text-align: left;
+	letter-spacing: 0.1vw;
+}
+
+.book .author {
+	text-align: left;
+	letter-spacing: 0.3vw;
+}
+
+.author a {
+	margin-left: 3vw;
+}
+
+.book .category {
+	letter-spacing: 0.2vw;
+}
+
+.menu a {
 	font-size: 2.5vh;
 	text-decoration: none;
 	font-family: "Verdana";
@@ -198,45 +232,74 @@ letter-spacing:0.2vw;
 	border-radius: 2.5vh;
 }
 
-#menu a.m {
+.menu a.m {
 	background: #E3E5D8;
 }
 
-#menu a.m:hover {
+.menu a.m:hover {
 	transition-duration: 0.3s;
 	color: #CD6E74;
 	font-size: 2.7vh;
 	background: white;
 }
-#pageStyle{  
-         display:inline-block;  
-         width:32px;  
-         height:32px;  
-         border:1px solid #CCC;  
-         line-height:32px;  
-         text-align:center;  
-         color:black;  
-         background-color:#EECBA5;
-         text-decoration:none;  
-         }  
-      #pageStyle:hover{  
-          background-color:#00ffff;  
-          }  
-      #pageStyle .active{  
-          background-color:#0CF;  
-          color:#ffffff;  
-          }  
-    #pageBack{
-        display:inline-block;  
-        width:32px;  
-        height:32px;  
-        border:1px solid gold;  
-        line-height:32px;  
-        text-align:center;  
-        color:black;  
-        background-color:#EECBA5;
-        text-decoration:none; 
-    }
-    #pageBack:hover{
-        background-color:#00ffff;  
-    }
+
+#pageStyle {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	border: 1px solid #CCC;
+	line-height: 32px;
+	text-align: center;
+	color: black;
+	background-color: #EECBA5;
+	text-decoration: none;
+}
+
+#pageStyle:hover {
+	background-color: #00ffff;
+}
+
+#pageStyle .active {
+	background-color: #0CF;
+	color: #ffffff;
+}
+
+#pageBack {
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	border: 1px solid gold;
+	line-height: 32px;
+	text-align: center;
+	color: black;
+	background-color: #EECBA5;
+	text-decoration: none;
+}
+
+#pageBack:hover {
+	background-color: #00ffff;
+}
+
+.hide {
+	background-color: rgb(0, 0, 0);
+	opacity: 0.502;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	display: none;
+}
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill
+	{
+	-webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+	background-color: transparent;
+	transition: background-color 50000s ease-in-out 0s;
+	//
+	背景色透明
+	生效时长
+	过渡效果
+	启用时延迟的时间
+}
