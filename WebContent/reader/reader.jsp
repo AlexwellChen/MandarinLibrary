@@ -9,37 +9,84 @@
 <link type="text/css" rel="stylesheet" href="../css/index.css">
 <title>reader</title>
 <style>
+.bm tbody {
+	transition: all 0.3s;
+}
 
+.bm tbody:hover {
+	transform: scale(1.04);
+	background: rgb(0, 255, 0, 0.9);
+	border: 0.1vh blue solid;
+}
+.MList::-webkit-scrollbar {
+ /*滚动条整体样式*/
+ width : 10px;  /*高宽分别对应横竖滚动条的尺寸*/
+ height: 1px;
+ }
+.MList::-webkit-scrollbar-thumb {
+ /*滚动条里面小方块*/
+ border-radius   : 10px;
+ background-color:#CD6E74;
+ }
+.MList::-webkit-scrollbar-track {
+ /*滚动条里面轨道*/
+ box-shadow   : inset 0 0 5px rgb(100,0,0, 0.2);
+ background   : rgb(200,200,200,0.3);
+ border-radius: 10px;
+ }
 </style>
 </head>
 
 <body>
+
+
+<!-- 导航菜单 -->
+	<%
+		if (session.getAttribute("role") == null) {
+			session.setAttribute("role", "reader");
+		}
+	%>
 	<jsp:include page="../include/header.jsp" flush="true" />
 	<%
 		if (session.getAttribute("menu") == null) {
 			session.setAttribute("menu", "searchBook");
 		}
 	%>
-	<div id="menu"
-		style="position: fixed; z-index:10;width: 100vw; height: 5vh; top: 15vh; background: #A9CABC; text-align: left; line-height: 5vh;">
+	<div class="menu"
+		style="position: fixed; z-index: 10; width: 100vw; height: 5vh; top: 15vh; background: #A9CABC; text-align: left; line-height: 5vh;">
 		<a>&nbsp&nbsp</a> <a class="m" id="searchBook"
 			href="menu.jsp?menu=searchBook">&nbsp&nbspSearch books&nbsp&nbsp</a>
-		<a>&nbsp&nbsp|&nbsp&nbsp&nbsp</a> <a class="m" id="history"
-			href="menu.jsp?menu=history">&nbsp&nbspView the borrow
-			history&nbsp&nbsp</a> <a>&nbsp&nbsp|&nbsp&nbsp&nbsp</a> <a class="m"
-			id="reserveBook" href="menu.jsp?menu=reserveBook">&nbsp&nbspReserve
+		<a>&nbsp&nbsp|&nbsp&nbsp&nbsp</a> 
+		
+		<a class="m"
+			id="reservedBook" href="menu.jsp?menu=reservedBook">&nbsp&nbspReserved
 			books&nbsp&nbsp</a>
+		
+		 <a>&nbsp&nbsp|&nbsp&nbsp&nbsp</a> 
+			
+			<a class="m" id="history"
+			href="menu.jsp?menu=history">&nbsp&nbspborrow
+			history&nbsp&nbsp</a>
 	</div>
 	<!-- 背景 -->
 	<div class="background"
-		style=" position:fixed;background: url(../imgs/readerBG.jpg); background-size: cover; top: 20vh; height: 80vh;">
-    </div>
-    <div class="background" id="board"
-		style="background: none;  top: 20vh; height: 68vh;">
+		style="position: fixed; background: url(../imgs/readerBG.jpg); background-size: cover; top: 20vh; height: 80vh;">
+	</div>
+	
+	
+	<!-- 显示区 -->
+	<div class="background" id="board"
+		style="background: none; top: 20vh; height: 68vh;">
+		
+		
+		
+		
+	<!-- searchBook板块 -->	
+		
 		<%
 			if (session.getAttribute("menu").equals("searchBook")) {
 		%>
-
+       <!-- 搜索框 -->
 		<form action="./test.jsp" method="get" id="search">
 			<input type="text" name="poster" value="search"
 				style="position: absolute; display: none" />
@@ -48,50 +95,56 @@
 
 				<input type="text" name="key" class="inputbar"
 					placeholder="input information"
-					style="background: none; border-top-right-radius: 0; border-bottom-right-radius: 0;" />
+					style="background: none; width: 36vw; border-top-right-radius: 0; border-bottom-right-radius: 0;" />
 				<input type="submit" value="search"
 					style="float: left; font-size: 2vh; color: white; background: rgba(76, 145, 224, 0.877); border-bottom-right-radius: 1.5vh; border-top-right-radius: 1.5vh; border: none; width: 4vw; height: 6vh; position: absolute; top: 0; right: 0; z-index: 2;" />
 			</div>
 		</form>
 
-		<div id="" 
-			style=" position:absolute;z-index: 0; background: none; top: 9.5vh; left: 10vw; width: 80vw; height: 57vh;">
+   
+   <!-- 图书展示区 -->
 
-			<div class="list" >
+		<div id="BookView"
+			style="position: absolute; z-index:0; background: none; top: 9.5vh; left: 10vw; width: 80vw; height: 57vh;">
 
-				<div class="foot" id="foot">
+			<div class="list">
 
-				</div>
-				<div class="bm" >
-					<table cellspacing="0" cellpadding="0" id="table1" style="display:none;">
+				<div class="foot" id="foot"></div>
+				<div class="bm">
+					<table cellspacing="0" cellpadding="0" id="table1"
+						style="display: none;">
 
-							<tbody id="?" class="book">
-								<tr>
-									<td class="name"><a href="">《book1》</a></td>
-									<td class="category"><a href="">math</a></td>
-								</tr>
-								
-								<tr>
-								<td class="author" style="width:15vw"><a href="">hu</a> <a style="color:grey">|</a><a href="">Press1</a></td>
-								<td ></td>
-								</tr>
-							
-							</tbody>
-								<tbody id="?" class="book">
-								<tr>
-									<td class="name"><a href="">《book1》</a></td>
-									<td class="category"><a href="">math</a></td>
-								</tr>
-								
-								<tr>
-								<td class="author" style="width:15vw"><a href="">hu</a> <a style="color:grey">|</a><a href="">Press1</a></td>
-								<td ></td>
-								</tr>
-							
-							</tbody>
-					
-					
-						
+						<tbody id="?" class="book"
+							onclick="location.href='../showBook/showBook.jsp?bookName=book'">
+							<tr>
+								<td class="name"><a>《book1》</a></td>
+								<td class="category"><a>math</a></td>
+							</tr>
+
+							<tr>
+								<td class="author" style="width: 15vw"><a href="">author1</a> <a
+									style="color: grey">|</a><a href="">Press1</a></td>
+								<td></td>
+							</tr>
+
+						</tbody>
+						<tbody id="?" class="book"
+							onclick="location.href='../showBook/showBook.jsp?bookName=book'">
+							<tr>
+								<td class="name"><a>《book1》</a></td>
+								<td class="category"><a>math</a></td>
+							</tr>
+
+							<tr>
+								<td class="author" style="width: 15vw"><a>author1</a> <a
+									style="color: grey">|</a><a>Press1</a></td>
+								<td></td>
+							</tr>
+
+						</tbody>
+
+
+
 
 					</table>
 				</div>
@@ -107,6 +160,290 @@
 
 
 
+
+
+
+
+<!-- 历史借书记录板块 -->
+
+
+<!-- 左侧菜单 -->
+		<%
+			if (session.getAttribute("menu").equals("history")) {
+		if (session.getAttribute("history") == null) {
+			session.setAttribute("history", "history_returned");
+		}
+	%>
+<div class="menu login" style="position: absolute; z-index: 10; width: 14vw; height: 60vh; left:1vw;top: 4vh; background: #A9CABC; text-align: center; line-height: 5vh;">
+<a class="m" id="history_returned"
+			href="menu.jsp?menu=history&history=history_returned">&nbsp&nbspreturned books&nbsp&nbsp</a>
+			<br>
+<a class="m" id="history_borrowing"
+			href="menu.jsp?menu=history&history=history_borrowing">&nbsp&nbspborrowing books&nbsp&nbsp</a>
+
+</div>
+
+
+    <div id="history_div" class="login" style="overflow:auto;z-index:11;background: rgb(235,213,190, 0.9);top:4vh;left:17.5vw;width:80vw;height:60vh;">
+
+
+
+<!-- 已还书板块 -->
+<%
+if(session.getAttribute("history").equals("history_returned")){
+%>	
+<div  class="returned_div">
+			<div class="head1">
+				<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td class="by"><a style="font-weight: 700">BookId</a></td>
+							<td class="by"><a style="font-weight: 700">Book name</a></td>
+							<td class="by"><a style="font-weight: 700">Author</a></td>
+							<td class="by"><a style="font-weight: 700">Borrow time</a></td>
+							<td class="by"><a style="font-weight: 700">Deadline</a></td>
+							<td class="by"><a style="font-weight: 700">Return time</a></td>
+							<td class="by"><a style="font-weight: 700">Book state</a></td>
+							<td class="by"><a style="font-weight: 700">fine</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+</div>
+			<div class="returned_div">
+				<table cellspacing="0" cellpadding="0" id="table_returned">
+
+					<tbody>
+						<tr>
+							<td class="by"><a>1</a></td>
+							<td class="by"><a>Book1</a></td>
+							<td class="by"><a>Author1</a></td>
+							<td class="by"><a>2019.02.03</a></td>
+							<td class="by"><a>2019.03.03</a></td>
+							<td class="by"><a>2019.03.13</a></td>
+							<td class="by"><a style="color:red">timeout</a></td>
+							<td class="by"><a>10.0  ￥</a></td>
+						</tr>
+					</tbody>
+					
+					<tbody>
+						<tr>
+							<td class="by"><a>2</a></td>
+							<td class="by"><a>Book2</a></td>
+							<td class="by"><a>Author2</a></td>
+							<td class="by"><a>2019.02.04</a></td>
+							<td class="by"><a>2019.03.04</a></td>
+							<td class="by"><a>2019.03.01</a></td>
+							<td class="by"><a style="color:red">broken</a></td>
+							<td class="by"><a>20.0 ￥</a></td>
+						</tr>
+					</tbody>
+					
+					<tbody>
+						<tr>
+							<td class="by"><a>3</a></td>
+							<td class="by"><a>Book3</a></td>
+							<td class="by"><a>Author3</a></td>
+							<td class="by"><a>2019.04.04</a></td>
+							<td class="by"><a>2019.05.04</a></td>
+							<td class="by"><a>2019.04.11</a></td>
+							<td class="by"><a style="color:green">normal</a></td>
+							<td class="by"><a>0.0 ￥</a></td>
+						</tr>
+					</tbody>
+						<tbody>
+						<tr>
+							<td class="by"><a>3</a></td>
+							<td class="by"><a>Book3</a></td>
+							<td class="by"><a>Author3</a></td>
+							<td class="by"><a>2019.04.04</a></td>
+							<td class="by"><a>2019.05.04</a></td>
+							<td class="by"><a>2019.04.11</a></td>
+							<td class="by"><a style="color:green">normal</a></td>
+							<td class="by"><a>0.0 ￥</a></td>
+						</tr>
+					</tbody>
+					
+					<%
+					for(int i=0;i<20;i++){
+						out.print("<tbody>"+
+								"<tr>"+
+								"<td class=\"by\"><a>3</a></td>"+
+								"<td class=\"by\"><a>Book3</a></td>"+
+								"<td class=\"by\"><a>Author3</a></td>"+
+								"<td class=\"by\"><a>2019.04.04</a></td>"+
+								"<td class=\"by\"><a>2019.05.04</a></td>"+
+								"<td class=\"by\"><a>2019.04.11</a></td>"+
+								"<td class=\"by\"><a style=\"color:green\">normal</a></td>"+
+								"<td class=\"by\"><a>0.0 ￥</a></td>"+
+							"</tr>"+
+						"</tbody>");
+					}
+					
+					%> 
+					
+					
+				</table>
+				<br> <br>
+			</div>
+
+<% 	
+};
+%>
+
+
+<!-- 正在借的书板块 -->
+<% 
+if(session.getAttribute("history").equals("history_borrowing")){
+%>	
+<div  class="borrowing_div">
+			<div class="head1">
+				<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td class="by"><a style="font-weight: 700">BookId</a></td>
+							<td class="by"><a style="font-weight: 700">Book name</a></td>
+							<td class="by"><a style="font-weight: 700">Author</a></td>
+							<td class="by"><a style="font-weight: 700">Borrow time</a></td>
+							<td class="by"><a style="font-weight: 700">Deadline</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+</div>
+			<div class="borrowing_div">
+				<table cellspacing="0" cellpadding="0" id="table_returned">
+
+					<tbody>
+						<tr>
+							<td class="by"><a>1</a></td>
+							<td class="by"><a>Book1</a></td>
+							<td class="by"><a>Author1</a></td>
+							<td class="by"><a>2019.02.03</a></td>
+							<td class="by"><a style="color:red;">2019.03.03</a></td>
+						</tr>
+					</tbody>
+					
+					<tbody>
+						<tr>
+							<td class="by"><a>2</a></td>
+							<td class="by"><a>Book2</a></td>
+							<td class="by"><a>Author2</a></td>
+							<td class="by"><a>2019.02.04</a></td>
+							<td class="by"><a style="color:green">2019.03.04</a></td>
+						</tr>
+					</tbody>
+					
+					<tbody>
+						<tr>
+							<td class="by"><a>3</a></td>
+							<td class="by"><a>Book3</a></td>
+							<td class="by"><a>Author3</a></td>
+							<td class="by"><a>2019.04.04</a></td>
+							<td class="by"><a style="color:green">2019.05.04</a></td>
+						</tr>
+					</tbody>
+					
+					<%
+					for(int i=0;i<20;i++){
+						out.print("<tbody>"+
+								"<tr>"+
+								"<td class=\"by\"><a>3</a></td>"+
+								"<td class=\"by\"><a>Book3</a></td>"+
+								"<td class=\"by\"><a>Author3</a></td>"+
+								"<td class=\"by\"><a>2019.04.04</a></td>"+
+								"<td class=\"by\"><a style=\"color:green\">2019.05.04</a></td>"+
+							"</tr>"+
+						"</tbody>");
+					}
+					
+					%> 
+					
+					
+				</table>
+				<br> <br>
+			</div>
+
+<% 	
+};
+%>
+
+
+
+
+
+</div>
+		<%
+			} ;
+		%>
+
+	
+
+<!-- 正在预约书板块 -->
+
+<%
+			if (session.getAttribute("menu").equals("reservedBook")) {
+		%>
+		<div class="MList"
+			style="overflow:auto; position: absolute; z-index: 0; background: none; top: 4.5vh; left: 10vw; width: 80vw; height: 57vh;">
+
+			<div class="list">
+				<div class="bm">
+					<table cellspacing="0" cellpadding="0" id="table2"
+						style="display: block;">
+
+						<tbody id="?" class="book"
+							onclick="location.href='../showBook/showBook.jsp?bookName=book&option=view'">
+							<tr>
+								<td class="name"><a>《book1》</a></td>
+								<td class="category"><a>math</a></td>
+							</tr>
+
+							<tr>
+								<td class="author" style="width: 15vw"><a href="">author</a> <a
+									style="color: grey">|</a><a href="">bookId</a></td>
+								<td>
+								<a
+									style="color: blue">reserve time : &nbsp&nbsp</a>
+								<a>2019.02.01 13:14:15</a>
+								</td>
+							</tr>
+
+						</tbody>
+						<tbody id="?" class="book"
+							onclick="location.href='../showBook/showBook.jsp?bookName=book&option=view'">
+							<tr>
+								<td class="name"><a>《book1》</a></td>
+								<td class="category"><a>math</a></td>
+							</tr>
+
+							<tr>
+								<td class="author" style="width: 15vw"><a href="">author</a> <a
+									style="color: grey">|</a><a href="">bookId</a></td>
+								<td>
+								<a
+									style="color: blue">reserve time : &nbsp&nbsp</a>
+								<a>2019.02.01 13:14:15</a>
+								</td>
+							</tr>
+
+						</tbody>
+
+
+
+
+					</table>
+				</div>
+			</div>
+
+
+		</div>
+
+		<%
+			};
+		%>
 
 
 
@@ -148,10 +485,28 @@
      "font-size": "2.7vh",
      "background":"#CD6E74"
 	 })
+	 $("#table2 tbody").css({
+		 "background":"orange"
+	 })
+	 
+	 
+
+	 $(".returned_div a").css({
+		 "text-decoration": "none"
+	 })
+	
+	 $(".returned_div .by").css({
+			"height": "7vh",
+		"width": "10vw"
+	 })
+	 $(".borrowing_div .by").css({
+			"height": "7vh",
+		"width": "16vw"
+	 })
+	 
  })
- <%
-			if (session.getAttribute("menu").equals("searchBook")) {
-		%>
+	
+ <%if (session.getAttribute("menu").equals("searchBook")) {%>
 		$(function(){
 			$("#board").css({
 				"height":"150vh"
@@ -164,36 +519,35 @@
 			})
 			
 				})
-		
- <% }%>
+	
 $(function(){
 	var bm= new Array();
 	for(var i=0;i<100;i++){
 		bm[i]={BookName:"book"+i,};
 	}
 	
-    <%
-    
-    
-    %>
+    <%%>
 	
     for(var i=0;i<100;i++){
         $(`</tbody>
-				<tbody id=\"?\" class=\"book\">
+				<tbody id=\"?\" class=\"book\" onclick=\"location.href=\'../showBook/showBook.jsp?bookName=book\'\">
 				<tr>
-					<td class=\"name\"><a href=\"\">《book1》</a></td>
-					<td class=\"category\"><a href=\"\">math</a></td>
+					<td class=\"name\"><a >《book1》</a></td>
+					<td class=\"category\"><a >math</a></td>
 				</tr>
 				
 				<tr>
-				<td class=\"author\" style=\"width:15vw\"><a href=\"\">hu</a> <a style=\"color:grey\">|</a><a href=\"\">Press1</a></td>
+				<td class=\"author\" style=\"width:15vw\"><a >author`+i+`</a> <a style=\"color:grey\">|</a><a >Press1</a></td>
 				<td ></td>
 				</tr>
 			
 			</tbody>`).appendTo($('#table1'));
     }
         
-}); 
+});
+
+
+
 $(function () {
     
     var $table = $('#table1');
@@ -275,6 +629,23 @@ function changeCss1(o) {
     } 
   
 }
-</script>
+		
+ <%}%>
+ 
+ <%
+ if(session.getAttribute("history")!=null){
+%>
+ $("#<%out.print(session.getAttribute("history"));%>").css({
+	 "transition-duration":"0.3s",
+ "color":"white",
+ "font-size": "2.7vh",
+ "background":"#CD6E74"
+ })
+
+	 
+	 
+<% 
+ }
+ %> 
 </script>
 </html>
