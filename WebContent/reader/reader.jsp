@@ -48,9 +48,9 @@
 	%>
 	<jsp:include page="../include/header.jsp" flush="true" />
 	<%
-		if (session.getAttribute("menu") == null) {
+		   
 			session.setAttribute("menu", "searchBook");
-		}
+
 	%>
 	<div class="menu"
 		style="position: fixed; z-index: 10; width: 100vw; height: 5vh; top: 15vh; background: #A9CABC; text-align: left; line-height: 5vh;">
@@ -62,8 +62,7 @@
 			id="reservedBook" href="menu.jsp?menu=reservedBook">&nbsp&nbspReserved
 			books&nbsp&nbsp</a>
 		
-		 <a>&nbsp&nbsp|&nbsp&nbsp&nbsp</a> 
-			
+		 <a>&nbsp&nbsp|&nbsp&nbsp&nbsp</a> 			
 			<a class="m" id="history"
 			href="menu.jsp?menu=history">&nbsp&nbspborrow
 			history&nbsp&nbsp</a>

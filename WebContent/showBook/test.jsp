@@ -1,5 +1,5 @@
 
 <%
-session.setAttribute("result", "sucess");
+session.setAttribute("result", "success");
 response.sendRedirect("showBook.jsp");
 %>

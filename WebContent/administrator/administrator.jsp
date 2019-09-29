@@ -42,6 +42,9 @@
 <a class="m" id="other_period"
 			href="menu.jsp?menu=other&other=other_period">&nbsp&nbspSet book return period&nbsp&nbsp</a>
 
+<a class="m" id="other_deposit"
+			href="menu.jsp?menu=other&other=other_deposit">&nbsp&nbspSet book  deposit&nbsp&nbsp</a>
+
 </div>
 
 
@@ -52,6 +55,7 @@
 <%
 if(session.getAttribute("other").equals("other_fine")){
 %>	
+<a style="margin-top:5vh;;font-size:3vh;font-weight:bold">fine:<% %></a>
 			
 <form action="../test.jsp" method="get" name="changeFine">
 
@@ -77,6 +81,7 @@ if(session.getAttribute("other").equals("other_fine")){
 <% 
 if(session.getAttribute("other").equals("other_period")){
 %>	
+<a style="margin-top:5vh;;font-size:3vh;font-weight:bold">period:<% %></a>
 <form action="../test.jsp" method="get" name="changePeriod">
 
 			<input type="text" name="poster" value="changePeriod"
@@ -97,6 +102,30 @@ if(session.getAttribute("other").equals("other_period")){
 };
 %>
 
+
+<% 
+if(session.getAttribute("other").equals("other_deposit")){
+%>	
+<a style="margin-top:5vh;;font-size:3vh;font-weight:bold">deposit:<% %></a>
+<form action="../test.jsp" method="get" name="changePeriod">
+
+			<input type="text" name="poster" value="changePeriod"
+				style="position: absolute; display: none" />
+			<div class="inputArea"
+				style="width: 40vw; margin-left: 15vw; margin-top: 20vh">
+				<input style="width: 40vw; background: white" type="text"
+					name="newDeposit" placeholder=" please input new deposit"
+					class="inputbar" id="newPeriod" />
+
+			</div>
+			<a style="color: red" id="changePeriodTips"></a> <a
+				href="javascript:submitChangeDeposit()"
+				style="font-size: 2vh; background: rgba(76, 145, 224, 0.877); border-radius: 1.5vh; color: white; width: 6vw; height: 4vh; position: absolute; top: 35vh; left: 33vw; line-height: 4vh; text-decoration: none;">submit</a>
+		</form>
+
+<% 	
+};
+%>
 
 
 
@@ -275,7 +304,7 @@ function tip(e){
 }
 	<%if (session.getAttribute("result") != null) {%>
 		openW1();
-		  <%if (session.getAttribute("result") == "sucess") {%>
+		  <%if (session.getAttribute("result") == "success") {%>
 			setTimeout("tip(\"sucess !\")","500");
 			  <%} else {%>
 				setTimeout("tip(\"fail !\")","500");

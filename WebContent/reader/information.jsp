@@ -331,7 +331,7 @@ function tip(e){
 }
 	<%if (session.getAttribute("result") != null) {%>
 		openW1();
-		  <%if (session.getAttribute("result") == "sucess") {%>
+		  <%if (session.getAttribute("result") == "success") {%>
 			setTimeout("tip(\"sucess !\")","500");
 			  <%} else {%>
 				setTimeout("tip(\"fail !\")","500");
