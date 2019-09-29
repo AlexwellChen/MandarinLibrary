@@ -57,8 +57,15 @@ public class Admin extends User {
         System.out.println("success");		
 	}
 	
-	public void recoveryLibrarian(String acntNum){
-		//don't understand this function XD
+	public void recoveryLibrarian(String acntNum) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
+		//恢复Librarian的默认密码
+		String newPwd = "00010001";
+		Connection conn = LibraryAutomation.getInstance().dbInterface();
+		String sql = "UPDATE librarian set Password = '"+newPwd+"' where AcntNum = '"+acntNum+"'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		System.out.println(sql);
+		pstmt.executeUpdate();
+        System.out.println("success");
 				
 	}
 	//更改Admin的密码

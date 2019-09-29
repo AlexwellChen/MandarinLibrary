@@ -33,8 +33,10 @@
     <div id="administratorButtons"   style="display:none; position:absolute;width:20vw;height:15vh;right:0;top:0;text-align:center;line-height:4.5vh;font-size: 2vh;">
     
     
-     
-     <a style="font-size:3vh;pointer-events:none">welcome : administrator</a>
+     <%
+     	String acntNum = (String)session.getAttribute("acntNum");
+     %>
+     <a style="font-size:3vh;pointer-events:none">welcome : <%= acntNum %></a>
            <br>
              <a id="" class="logina" href="javascript:changPsdW()">change password</a><br>
           

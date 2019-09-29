@@ -98,39 +98,56 @@ public class Librarian extends User {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//显示2017-10-27格式
 		String FineRecord=null;
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		String sql = "select AcntNum,sum(FineValue) finetatal,ReturnDate from BookRecord where FineValue!=0 and ReturnDate is not null";
+		String sql = "select AcntNum,FineValue,LendDate,ReturnDate from BookRecord where FineValue is not null and ReturnDate is not null";
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
         while(rs.next()) { 
-        	FineRecord= rs.getString("AcntNum")+'\t'+rs.getString("finetatal")+'\t'+sdf.format(rs.getDate("LendDate"))+'\t'+sdf.format(rs.getDate("ReturnDate"));
+        	FineRecord= rs.getString("AcntNum")+'\t'+rs.getString("finevalue")+'\t'+sdf.format(rs.getDate("LendDate"))+'\t'+sdf.format(rs.getDate("ReturnDate"));
         	FineRecords.addElement(FineRecord);
         }
 		return FineRecords;
 	}
+	
 	public boolean lendBook(String acntNum,String bookId) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException {
-		String str ="select status,reserve from book  where bookid = "+bookId;
-		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(str);
-		Boolean bo1=rs.getBoolean("status");
-		Boolean bo2=rs.getBoolean("reserve");
-		if(bo1==false&&bo2==false) 
-		{
-		   String sql = "UPDATE book SET status = "+1+" where bookid = "+bookId;//SQL语句
-		   PreparedStatement pstmt = conn.prepareStatement(sql);
-		   pstmt.executeUpdate();
-           return true;
-		}
+		String str1="select booknumber from reader where reader.acntNum="+acntNum;
+		Connection conn1 = LibraryAutomation.getInstance().dbInterface();
+		Statement stmt1 = conn1.createStatement();
+		ResultSet rs1 = stmt1.executeQuery(str1);
+		int number=rs1.getInt("booknumber");
+		if(number<3)
+		{		
+			String str ="select status from book  where bookid = "+bookId;
+			String getReader ="select acntnum from reserve  where bookid = "+bookId;
+			Connection conn = LibraryAutomation.getInstance().dbInterface();
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(str);
+			String bo1=rs.getString("status");
+			if(bo1.equals("available")||(bo1.equals("available")&&acntNum.equals(stmt.executeQuery(getReader).getString("acntnum")))) 
+			{
+				String deleteReserve = "delete from reserve where bookid='"+bookId+"'";
+				String sql = "UPDATE book SET status ='lent' where bookid = '"+bookId+"'";//SQL语句
+				String sql1="UPDATE book set booknumber=booknumber-1 where reader.acntNum='"+acntNum+"'";
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				pstmt.executeUpdate();
+				PreparedStatement pstmt1 = conn.prepareStatement(sql1);
+				pstmt1.executeUpdate();
+				PreparedStatement pstmt2 = conn.prepareStatement(deleteReserve);
+				pstmt2.executeUpdate();
+				return true;
+			}
+		}	
 		return false;
-		
 	}
 	
 	public void returnBook(String acntNum,String bookId) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
 		   Connection conn = LibraryAutomation.getInstance().dbInterface();
-		   String sql = "UPDATE book SET status ="+0+",reserve= "+0+" where bookid = "+bookId;//SQL语句
+		   String sql = "UPDATE book SET status=available where bookid = "+bookId;//SQL语句
+		   String sql1="UPDATE book set booknumber=booknumber-1 where reader.acntNum="+acntNum;
 		   PreparedStatement pstmt = conn.prepareStatement(sql);
 		   pstmt.executeUpdate();
-           System.out.println("success");
+		   PreparedStatement pstmt1 = conn.prepareStatement(sql1);
+		   pstmt1.executeUpdate();
+        System.out.println("success");
 	}
 	
 	public Vector<String> viewTotalDeposit(Date beginDate,Date endData) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException {
@@ -162,12 +179,12 @@ public class Librarian extends User {
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//显示2017-10-27格式
 		Connection conn = LibraryAutomation.getInstance().dbInterface(); 
 		//获得这两段时间之内的保证金记录
-		String sql = "SELECT fineDate,fineRecord,acntNum FROM record where date(fineDate) between"+beginDate+"and"+endData;//SQL语句
+		String sql = "SELECT returnDate,fineValue,acntNum FROM record where returnDate is not null and date(returnDate) between"+beginDate+"and"+endData;//SQL语句
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 		while(rs.next())
 		{
-			inf=sdf.format(rs.getDate("fineDate"))+'\t'+rs.getString("AcntNum")+'\t'+rs.getInt("fineRecord");
+			inf=rs.getString("AcntNum")+'\t'+sdf.format(rs.getDate("returnDate"))+'\t'+rs.getInt("fineValue");
 			totalFineInf.addElement(inf);
 			totalFine+=rs.getInt("fineRecord");
 		}
@@ -193,22 +210,27 @@ public class Librarian extends User {
 	public String toString() {
 		return "Librarian [toString()=" + super.toString() + "]";
 	}
-	public boolean login(String acntNum, String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
-		Connection conn = LibraryAutomation.getInstance().dbInterface();
-		String sql = "SELECT count(*) num FROM Librarian where AcntNum="+acntNum;//SQL语句
-		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(sql);
-		if(rs.next()) {
-			if(rs.getInt("num")==1) {
-				sql = "SELECT password FROM Librarian where AcntNum = "+acntNum;//SQL语句
-				rs = stmt.executeQuery(sql);
-				if(rs.next()) {
-					if(rs.getString("Password").equals(password)) {
-						return true;
+	public static boolean login(String acntNum, String password) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
+			Connection conn = LibraryAutomation.getInstance().dbInterface();
+			String sql = "SELECT count(*) num FROM Librarian where AcntNum='"+acntNum+"'";//SQL语句
+		
+		
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()) {
+				if(rs.getInt("num")==1) {
+					
+					sql = "SELECT password FROM Librarian where AcntNum = '"+acntNum+"'";//SQL语句
+					rs = stmt.executeQuery(sql);
+					if(rs.next()) {
+						if(rs.getString("Password").equals(password)) {
+							return true;
+						}
 					}
+					
 				}
+				
 			}
-		}
 		return false;
 	}
 
