@@ -9,9 +9,11 @@
 </head>
 <body>
 	<%
-		String newDeposit = new String(request.getParameter("changeDeposit").getBytes("UTF-8"),"UTF-8");//新周期
+		String newDeposit = new String(request.getParameter("newDeposit").getBytes("UTF-8"),"UTF-8");//新周期
 		int Deposit = Integer.parseInt(newDeposit);
 		Admin.setSecurityDeposit(Deposit);
+		String script = "<script>alert('set success');location.href='administrator.jsp'</script>";
+		response.getWriter().println(script);
 	%>
 </body>
 </html>

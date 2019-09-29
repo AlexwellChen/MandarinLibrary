@@ -9,9 +9,11 @@
 </head>
 <body>
 		<%
-			String newPeriod = new String(request.getParameter("changePeriod").getBytes("UTF-8"),"UTF-8");//新周期
+			String newPeriod = new String(request.getParameter("newPeriod").getBytes("UTF-8"),"UTF-8");//新周期
 			int Period = Integer.parseInt(newPeriod);
 			Admin.setReturnPeriod(Period);
+			String script = "<script>alert('set success');location.href='administrator.jsp'</script>";
+			response.getWriter().println(script);
 		%>
 </body>
 </html>

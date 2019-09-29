@@ -5,14 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>change fine</title>
+<title>regist Librarian</title>
 </head>
 <body>
 	<%
-		String newFine = new String(request.getParameter("newFine").getBytes("UTF-8"),"UTF-8");//新周期
-		int Fine = Integer.parseInt(newFine);
-		Admin.setFineValue(Fine);
-		String script = "<script>alert('set success');location.href='administrator.jsp'</script>";
+		String accountNum = new String(request.getParameter("acntNum").getBytes("UTF-8"),"UTF-8");//注册用户名
+		String password = new String(request.getParameter("Password").getBytes("UTF-8"),"UTF-8");//注册密码
+		Admin.registerLibrarian(accountNum, password);
+		String script = "<script>alert('Regist success!');location.href='administrator.jsp'</script>";
 		response.getWriter().println(script);
 	%>
 </body>

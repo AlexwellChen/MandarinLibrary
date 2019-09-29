@@ -1,12 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
+<%@page import="instance.*" %>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link type="text/css" rel="stylesheet" href="../css/index.css">
+<link type="text/css" rel="stylesheet" href="../lib/layui/css/layui.css">
 <title>administrator</title>
 </head>
 
@@ -20,7 +21,7 @@
 	<div class="menu"
 		style="position: absolute; width: 100vw; height: 5vh; top: 15vh; background: #A9CABC; text-align: left; line-height: 5vh;">
 		<a>&nbsp&nbsp</a> <a class="m" id="account"
-			href="menu.jsp?menu=account">&nbsp&nbspAccount&nbsp&nbsp</a> <a>&nbsp&nbsp|&nbsp&nbsp&nbsp</a>
+			href="menu.jsp?menu=account">&nbsp&nbspRegist Account&nbsp&nbsp</a> <a>&nbsp&nbsp|&nbsp&nbsp&nbsp</a>
 		<a class="m" id="librarian" href="menu.jsp?menu=librarian">&nbsp&nbsplibrarian&nbsp&nbsp</a>
 		<a>&nbsp&nbsp|&nbsp&nbsp&nbsp</a> <a class="m" id="other"
 			href="menu.jsp?menu=other">&nbsp&nbspother&nbsp&nbsp</a>
@@ -37,7 +38,24 @@
 
 	<div id="window2" class="login"
 		style="z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
-		
+				<form action="registLibrarian.jsp" method="post" name="changePsd">
+				<input type="text" name="poster" value="AdminchangePsd"
+					style="position: absolute; display: none" />
+				<div class="inputArea"
+					style="width: 40vw; margin-left: 15vw; margin-top: 10vh">
+					<input style="width: 40vw; background: white" type="text"
+						name="acntNum" id="acntNum"
+						placeholder=" please input your account number" class="inputbar" />
+
+				</div>
+				<div class="inputArea"
+					style="width: 40vw; margin-left: 15vw; margin-top: 5vh">
+					<input style="width: 40vw; background: white" type="password"
+						name="Password" id="Password"
+						placeholder=" please input your password" class="inputbar" />
+				</div>
+				<input type="submit" value="submit" class="layui-btn" style="margin-top: 4vh">
+		</form>
 	</div>
 
 
@@ -106,7 +124,7 @@
 <%
 if(session.getAttribute("other").equals("other_fine")){
 %>	
-<a style="position:absolute;top:10vh;left:28vw;font-size:3vh;font-weight:bold">fine:<% %></a>
+<a style="position:absolute;top:10vh;left:28vw;font-size:3vh;font-weight:bold">fine:<%=LibraryAutomation.getInstance().getBookFineValue()%></a>
 			
 <form action="changeFine.jsp" method="get" name="changeFine">
 
@@ -132,7 +150,7 @@ if(session.getAttribute("other").equals("other_fine")){
 <% 
 if(session.getAttribute("other").equals("other_period")){
 %>	
-<a style="position:absolute;top:10vh;left:27vw;font-size:3vh;font-weight:bold">period:<% %></a>
+<a style="position:absolute;top:10vh;left:27vw;font-size:3vh;font-weight:bold">period:<%=LibraryAutomation.getInstance().getBookReturnPeriod() %></a>
 <form action="changePeriod.jsp" method="get" name="changePeriod">
 
 			<input type="text" name="poster" value="changePeriod"
@@ -157,10 +175,10 @@ if(session.getAttribute("other").equals("other_period")){
 <% 
 if(session.getAttribute("other").equals("other_deposit")){
 %>	
-<a style="position:absolute;top:10vh;left:27vw;font-size:3vh;font-weight:bold">deposit:<% %></a>
-<form action="changeDeposit.jsp" method="get" name="changePeriod">
+<a style="position:absolute;top:10vh;left:27vw;font-size:3vh;font-weight:bold">deposit:<%=LibraryAutomation.getInstance().getReaderSecurityDeposit() %></a>
+<form action="changeDeposit.jsp" method="get" name="changeDeposit">
 
-			<input type="text" name="poster" value="changePeriod"
+			<input type="text" name="poster" value="changeDeposit"
 				style="position: absolute; display: none" />
 			<div class="inputArea"
 				style="width: 40vw; margin-left: 15vw; margin-top: 20vh">
@@ -218,7 +236,7 @@ if(session.getAttribute("other").equals("other_deposit")){
 	<div class="hide" id="hide"></div>
 <div id="window1" class="login"
 		style="z-index: 11; background: #FAF79F; top: 14vh; left: 15vw; width: 70vw; height: 60vh; display: none;">
-		<form action="../test.jsp" method="post" name="changePsd">
+		<form action="changeAdminPassword.jsp" method="post" name="changePsd">
 				<input type="text" name="poster" value="AdminchangePsd"
 					style="position: absolute; display: none" />
 				<div class="inputArea"
@@ -241,7 +259,7 @@ if(session.getAttribute("other").equals("other_deposit")){
 						name="newPsd1" id="newPsd1"
 						placeholder=" please confirm your new password" class="inputbar" />
 				</div>
-			<a style="color: red" id="psdTips"></a> <a
+			<a style="color: red" class="psdTips"></a> <a
 				href="javascript:submitPsd()"
 				style="font-size: 2vh; background: rgba(76, 145, 224, 0.877); border-radius: 1.5vh; color: white; width: 6vw; height: 4vh; position: absolute; top: 45vh; left: 25vw; line-height: 4vh; text-decoration: none;">submit</a>
 			<a href="javascript:closeW()"
@@ -251,6 +269,7 @@ if(session.getAttribute("other").equals("other_deposit")){
 
 </body>
 <script src="../lib/jquery/jquery-1.9.1.js"></script>
+<script src="../lib/layui/layui.js"></script>
 <script type="text/javascript">
 function checknewFine(){
 	var name=$("#newFine").val();
@@ -285,19 +304,19 @@ function checkPsd(){
 	var newPsd=$("#newPsd").val();
 	var newPsd1=$("#newPsd1").val();
 	if(oldPsd==null||oldPsd==""){
-		$("#psdTips").html("please input your old password")
+		$(".psdTips").html("please input your old password")
 		return false;
 	};
 	if(newPsd==null||newPsd==""){
-		$("#psdTips").html("please input your new password")
+		$(".psdTips").html("please input your new password")
 		return false;
 	};
 	if(newPsd1==null||newPsd1==""){
-		$("#psdTips").html("please confirm your new password")
+		$(".psdTips").html("please confirm your new password")
 		return false;
 	};
 	if(newPsd!=newPsd1){
-		$("#psdTips").html("the password you inputed must be same")
+		$(".psdTips").html("the password you inputed must be same")
 		return false;
 	}; 
  return true; 
