@@ -31,6 +31,57 @@
 
 
 <%
+			if (session.getAttribute("menu").equals("account")) {
+		%>
+
+
+	<div id="window2" class="login"
+		style="z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
+		
+	</div>
+
+
+
+
+
+<%
+			}
+		%>
+		
+		
+	
+	
+	
+	
+	<%
+			if (session.getAttribute("menu").equals("librarian")) {
+		%>
+
+
+	<div id="window2" class="login"
+		style="z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
+		
+	</div>
+
+
+
+
+
+<%
+			}
+		%>
+		
+	
+	
+	
+	
+	
+	
+	
+		
+		
+
+<%
 			if (session.getAttribute("menu").equals("other")) {
 		if (session.getAttribute("other") == null) {
 			session.setAttribute("other", "other_fine");
@@ -55,7 +106,7 @@
 <%
 if(session.getAttribute("other").equals("other_fine")){
 %>	
-<a style="margin-top:5vh;;font-size:3vh;font-weight:bold">fine:<% %></a>
+<a style="position:absolute;top:10vh;left:28vw;font-size:3vh;font-weight:bold">fine:<% %></a>
 			
 <form action="changeFine.jsp" method="get" name="changeFine">
 
@@ -81,7 +132,7 @@ if(session.getAttribute("other").equals("other_fine")){
 <% 
 if(session.getAttribute("other").equals("other_period")){
 %>	
-<a style="margin-top:5vh;;font-size:3vh;font-weight:bold">period:<% %></a>
+<a style="position:absolute;top:10vh;left:27vw;font-size:3vh;font-weight:bold">period:<% %></a>
 <form action="changePeriod.jsp" method="get" name="changePeriod">
 
 			<input type="text" name="poster" value="changePeriod"
@@ -106,7 +157,7 @@ if(session.getAttribute("other").equals("other_period")){
 <% 
 if(session.getAttribute("other").equals("other_deposit")){
 %>	
-<a style="margin-top:5vh;;font-size:3vh;font-weight:bold">deposit:<% %></a>
+<a style="position:absolute;top:10vh;left:27vw;font-size:3vh;font-weight:bold">deposit:<% %></a>
 <form action="changeDeposit.jsp" method="get" name="changePeriod">
 
 			<input type="text" name="poster" value="changePeriod"

@@ -136,12 +136,72 @@
 
 
 
+<%
+			if (session.getAttribute("menu").equals("reader")) {
+		%>
+
+
+	<div id="window2" class="login"
+		style="z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
+		
+	</div>
+
+
+
+
+
+<%
+			}
+		%>
+		
+		
+		
+		
+		
+		
+
+
+<%
+			if (session.getAttribute("menu").equals("news")) {
+		%>
+
+
+	<div id="window2" class="login"
+		style="z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
+		
+	</div>
+
+
+
+
+
+<%
+			}
+		%>
 
 
 
 
 
 
+
+<%
+			if (session.getAttribute("menu").equals("income")) {
+		%>
+
+
+	<div id="window2" class="login"
+		style="z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
+		
+	</div>
+
+
+
+
+
+<%
+			}
+		%>
 
 
 
