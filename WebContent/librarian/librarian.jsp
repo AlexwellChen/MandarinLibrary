@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link type="text/css" rel="stylesheet" href="../css/index.css">
+<link type="text/css" rel="stylesheet" href="../lib/layui/css/layui.css">
 <title>librarian</title>
 </head>
 <style>
@@ -20,18 +21,17 @@
 	border: 0.1vh blue solid;
 }
 </style>
-<body>
+<body onbeforeunload="window.loaction='../close.jsp'">
 
 <%
-		if (session.getAttribute("role") == null) {
 			session.setAttribute("role", "librarian");
-		}
 	%>
 	<jsp:include page="../include/header.jsp" flush="true" />
 	<%
 		if (session.getAttribute("menu") == null) {
 			session.setAttribute("menu", "book");
 		}
+	    
 	%>
 	<div class="menu"
 		style="position: fixed; z-index:1;width: 100vw; height: 5vh; top: 15vh; background: #A9CABC; text-align: left; line-height: 5vh;">
@@ -62,14 +62,13 @@
 		
 		<div class="menu login" style="position: absolute; z-index: 10; width: 18vw; height: 30vh; left:3vw;top: 4vh; background: #A9CABC; text-align: center; line-height: 5vh;">
 <a class="m" id=""
-			href="">&nbsp&nbspAdd books&nbsp&nbsp</a><br>
+			href="javascript:AddBooks()">&nbsp&nbspAdd books&nbsp&nbsp</a><br>
 <a class="m" id=""
-			href="">&nbsp&nbsp Lend Book&nbsp&nbsp</a><br>
+			href="javascript:LendBook()">&nbsp&nbsp Lend Book&nbsp&nbsp</a><br>
 			<a class="m" id=""
-			href="">&nbsp&nbsp Return Book&nbsp&nbsp</a>
+			href="javascript:ReturnBook()">&nbsp&nbsp Return Book&nbsp&nbsp</a>
 
 </div>
-		
        <!-- 搜索框 -->
 		<form action="../test.jsp" method="get" id="search">
 			<input type="text" name="poster" value="search"
@@ -146,7 +145,6 @@
 
 
 
-
 		<jsp:include page="../include/footer.jsp" flush="true" />
 	</div>
 
@@ -155,10 +153,16 @@
 
 </body>
 <script src="../lib/jquery/jquery-1.9.1.js"></script>
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/layer/layer.js"></script>
+<script src="../lib/layui/layui.js"></script>
 <script type="text/javascript">
- function sel(){
-	 document.account.submit();
- }
+<%-- <%
+if (session.getAttribute("role") == null) {
+	%>
+	loaction.reload();
+<%}
+%> --%>
  $(function(){
 	 $('#title').html("&nbsp;&nbsp;&nbsp;&nbsp; MandarinLibrary &nbsp;&nbsp;&nbsp;&nbsp;☞&nbsp;&nbsp;&nbsp;&nbsp;Librarian")
 	 $('.header').css({
@@ -196,12 +200,12 @@ $(function(){
 	
 	})
 	
-
+	
 	
 	
 		})
 		
-		
+	 
 			
 $(function(){
 	var bm= new Array();
@@ -318,6 +322,157 @@ function changeCss1(o) {
   
 }
 
+function LendBook(){
+	layer.open({
+		  type: 1,
+		  skin: 'layui-layer-rim', //加上边框
+		  area: ['620px', '240px'], //宽高
+		  title:"Lend Book",
+		  content: `
+		  <br>
+			  <form class="layui-form" action="../test.jsp" method="get" >
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">reader name</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="readerName" required  lay-verify="required" placeholder="input reader name" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book id</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="bookId" required  lay-verify="required" placeholder="input book id" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  <div class="layui-form-item">
+			    <div class="layui-input-block">
+			      <button class="layui-btn" lay-submit lay-filter="formDemo">submit</button>
+			      <button type="reset" class="layui-btn layui-btn-primary">reset</button>
+			    </div>
+			  </div>
+			</form>
+			 
+`
+		});
+}
+
+function ReturnBook(){
+	layer.open({
+		  type: 1,
+		  skin: 'layui-layer-rim', //加上边框
+		  area: ['620px', '240px'], //宽高
+		  title:"Return Book",
+		  content: `
+		  <br>
+			  <form class="layui-form" action="../test.jsp" method="get" >
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">reader name</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="readerName" required  lay-verify="required" placeholder="input reader name" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book id</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="bookId" required  lay-verify="required" placeholder="input book id" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <div class="layui-input-block">
+			      <button class="layui-btn" lay-submit lay-filter="formDemo">submit</button>
+			      <button type="reset" class="layui-btn layui-btn-primary">reset</button>
+			    </div>
+			  </div>
+			</form>
+			 
+`
+		});
+}
+function AddBooks(){
+	layer.open({
+		  type: 1,
+		  skin: 'layui-layer-rim', //加上边框
+		  area: ['70vw', '75vh'], //宽高
+		  title:"Add Books",
+		  content: `
+		  <br>
+			  <form class="layui-form" action="../test.jsp" method="post" >
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">reader name</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="name" required  lay-verify="required"  autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book id</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="bookid" required  lay-verify="required" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book press</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="press" required  lay-verify="required" placeholder="input book press" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book price</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="price" required  lay-verify="required" placeholder="input book price" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book category</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="category" required  lay-verify="required" placeholder="input book category" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book position</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="position"   lay-verify="required" placeholder="input book position" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">ISBN</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="ISBN" required  lay-verify="required" placeholder="input book ISBN" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  
+			  
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book price</label>
+			    <div class="layui-input-block">
+			      <input type="text" style="width:400px" name="bookPrice" required  lay-verify="required" placeholder="input book price" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  
+			  <div class="layui-form-item">
+			    <div class="layui-input-block">
+			      <button class="layui-btn" lay-submit lay-filter="formDemo">submit</button>
+			      <button type="reset" class="layui-btn layui-btn-primary">reset</button>
+			    </div>
+			  </div>
+			</form>
+			 
+`
+		});
+}
+
 <%}%>
+
 </script>
 </html>
