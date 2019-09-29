@@ -61,16 +61,26 @@ public class Admin extends User {
 		//don't understand this function XD
 				
 	}
+	//更改Admin的密码
+	public static void changeAdminPwd(String acntNum, String newPwd) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IOException, SQLException{
+		Connection conn = LibraryAutomation.getInstance().dbInterface();
+		String sql = "update Admin SET Password='"+newPwd+"'"+"where AcntNum = '"+acntNum+"'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		System.out.println(sql);
+		pstmt.executeUpdate();
+        System.out.println("success");		
+				
+	}
 	//更改罚款金额
-	public void setFineValue(int fineValue){
+	public static void setFineValue(int fineValue){
 		LibraryAutomation.getInstance().setBookFineValue(fineValue);
 	}
 	//更改归还日期
-	public void setReturnPeriod(int newPeriod){
+	public static void setReturnPeriod(int newPeriod){
 		LibraryAutomation.getInstance().setBookReturnPeriod(newPeriod);
 	}
 	//更改押金金额
-	public void setSecurityDeposit(int newDeposit){
+	public static void setSecurityDeposit(int newDeposit){
 		LibraryAutomation.getInstance().setReaderSecurityDeposit(newDeposit);
 	}
 	@Override
