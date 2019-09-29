@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>admin login</title>
 </head>
 <body>
 	<% //测试通过
@@ -14,12 +14,12 @@
 		Boolean login = Admin.login(acntName,pwd);
 		if(login)
 		{
-			
+			session.setAttribute("acntNum", acntName);
 			response.sendRedirect("administrator/administrator.jsp");
 		}
 		else
 		{
-			String script = "<script>alert('用户名或密码错误，请重新登陆');location.href='index.jsp'</script>";
+			String script = "<script>alert('用户名或密码错误，请重新登陆');location.href='administratorLoginPage.jsp'</script>";
 			response.getWriter().println(script);
 		}
 	 %>

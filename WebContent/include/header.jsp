@@ -38,7 +38,7 @@
            <br>
              <a id="" class="logina" href="javascript:changPsdW()">change password</a><br>
           
-            <a   id="logout" class="logina" href="" onClick="{if(confirm('ARE YOU SURE TO LOGOUT ?')){return ture;}return false;}">logout</a>
+            <a   id="logout" class="logina" href="../administrator/adminLogout.jsp" onClick="{if(confirm('ARE YOU SURE TO LOGOUT ?')){return ture;}return false;}">logout</a>
     
     
     
