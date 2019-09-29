@@ -10,7 +10,10 @@
 <body>
 		<%
 			String newPassword = new String(request.getParameter("newpsd").getBytes("UTF-8"),"UTF-8");//新密码
-			
+			String acntNum = new String(request.getParameter("name").getBytes("UTF-8"),"UTF-8");//得到账户
+			Admin.editLibrarianPassword(acntNum, newPassword);
+			String script = "<script>alert('Change Success!');location.href='administrator.jsp'</script>";
+			response.getWriter().println(script);
 		%>
 </body>
 </html>

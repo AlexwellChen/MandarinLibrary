@@ -126,12 +126,12 @@ margin-left: 2vw;
 %>
 					<tbody id="?">
 						<tr>
-							<td class="by"><a href="">acntNum</a></td>
-							<td class="by"><a href="javascript:changePsd(<%= %>)" style="color: green">change password</a></td>
-							<td class="by"><a href="resetLibrarian.jsp?name="
+							<td class="by"><a href=""><%=acntNum %></a></td>
+							<td class="by"><a href="javascript:changePsd(<%=acntNum %>)" style="color: green">change password</a></td>
+							<td class="by"><a href="resetLibrarian.jsp?name=<%=acntNum %>"
 								onClick="{if(confirm('ARE YOU SURE TO RESET THIS Account ?')){return ture;}return false;}"
 								style="color: red;">reset</a></td>
-							<td class="by"><a href="deleteLibrarian.jsp?name=..."
+							<td class="by"><a href="deleteLibrarian.jsp?name=<%=acntNum %>"
 								onClick="{if(confirm('ARE YOU SURE TO DELETE THIS Account ?')){return ture;}return false;}"
 								style="color: red;">delete</a></td>
 						</tr>
