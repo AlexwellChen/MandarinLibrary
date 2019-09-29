@@ -1,7 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<%@page import="instance.*" %>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ page import="tools.*" %>
+<%@ page import="instance.*" %>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +13,22 @@
 <link type="text/css" rel="stylesheet" href="../lib/layui/css/layui.css">
 <title>administrator</title>
 </head>
-
+<style>
+a{
+text-decoration:none;
+}
+.list {
+	text-align: center;
+	margin-left: 2vw;
+}
+.bm{
+margin-left: 2vw;
+}
+.by {
+	height: 7vh;
+	width: 15vw;
+}
+</style>
 <body>
 	<jsp:include page="../include/header.jsp" flush="true" />
 	<%
@@ -77,7 +95,56 @@
 
 
 	<div id="window2" class="login"
-		style="z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
+		style="overflow-y: auto;z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
+		
+		
+		<div class="list">
+			<div class="head1">
+				<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td class="by"><a style="font-weight: 700">librarian name</a></td>
+							<td class="by"><a style="font-weight: 700">change password</a></td>
+							<td class="by"><a style="font-weight: 700">reset</a></td>
+							<td class="by"><a style="font-weight: 700">delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</div>
+			<div class="bm">
+				<table cellspacing="0" cellpadding="0" id="table1">
+<% 
+	Connection conn = LibraryAutomation.getInstance().dbInterface();
+	String sql = "SELECT * FROM librarian";//sql statement
+	Statement stmt = conn.createStatement();
+	ResultSet rs = stmt.executeQuery(sql);
+	String acntNum = null;
+	while(rs.next()){
+		acntNum = rs.getString("AcntNum");
+
+%>
+					<tbody id="?">
+						<tr>
+							<td class="by"><a href="">acntNum</a></td>
+							<td class="by"><a href="javascript:changePsd(<%= %>)" style="color: green">change password</a></td>
+							<td class="by"><a href="resetLibrarian.jsp?name="
+								onClick="{if(confirm('ARE YOU SURE TO RESET THIS Account ?')){return ture;}return false;}"
+								style="color: red;">reset</a></td>
+							<td class="by"><a href="deleteLibrarian.jsp?name=..."
+								onClick="{if(confirm('ARE YOU SURE TO DELETE THIS Account ?')){return ture;}return false;}"
+								style="color: red;">delete</a></td>
+						</tr>
+					</tbody>
+<%
+	}
+%>
+				</table>
+				<br> <br>
+			</div>
+		</div>
+		
+		
 		
 	</div>
 
@@ -184,10 +251,10 @@ if(session.getAttribute("other").equals("other_deposit")){
 				style="width: 40vw; margin-left: 15vw; margin-top: 20vh">
 				<input style="width: 40vw; background: white" type="text"
 					name="newDeposit" placeholder=" please input new deposit"
-					class="inputbar" id="newPeriod" />
+					class="inputbar" id="newDeposit" />
 
 			</div>
-			<a style="color: red" id="changePeriodTips"></a> <a
+			<a style="color: red" id="changeDepositTips"></a> <a
 				href="javascript:submitChangeDeposit()"
 				style="font-size: 2vh; background: rgba(76, 145, 224, 0.877); border-radius: 1.5vh; color: white; width: 6vw; height: 4vh; position: absolute; top: 35vh; left: 33vw; line-height: 4vh; text-decoration: none;">submit</a>
 		</form>
@@ -269,8 +336,30 @@ if(session.getAttribute("other").equals("other_deposit")){
 
 </body>
 <script src="../lib/jquery/jquery-1.9.1.js"></script>
+<script src="../lib/jquery/jquery.min.js"></script>
+<script src="../lib/layer/layer.js"></script>
 <script src="../lib/layui/layui.js"></script>
 <script type="text/javascript">
+
+
+function changePsd(el){
+	
+	layer.prompt({title: 'input new password', formType: 1}, function(pass_1, index){
+		  layer.close(index);
+		  layer.prompt({title: 'confirm password', formType: 1}, function(pass_2, index){
+		    layer.close(index);
+		    if(pass_1!=pass_2){
+		    	layer.msg('please input the SAME password !');
+		    	setTimeout("changePsd()","1000");
+		    }else{
+		    	window.location.href="../test.jsp?newpsd"+pass_1+"&name"+el;
+		    }
+		    
+		  });
+		});
+	
+	
+}
 function checknewFine(){
 	var name=$("#newFine").val();
 	if(name==null||name==""){
@@ -299,6 +388,23 @@ function submitChangePeriod(){
 	}
 	 
 }
+
+
+function checknewDeposit(){
+	var name=$("#newDeposit").val();
+	if(name==null||name==""){
+		$("#changeDepositTips").html("please input your new deposit");
+		return false;
+	}
+	return true;
+}
+function submitChangeDeposit(){
+	if(checknewDeposit()){
+		 document.changeDeposit.submit();
+	}
+	 
+}
+
 function checkPsd(){
 	var oldPsd=$("#oldPsd").val();
 	var newPsd=$("#newPsd").val();
