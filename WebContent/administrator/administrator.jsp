@@ -57,7 +57,7 @@ if(session.getAttribute("other").equals("other_fine")){
 %>	
 <a style="margin-top:5vh;;font-size:3vh;font-weight:bold">fine:<% %></a>
 			
-<form action="../test.jsp" method="get" name="changeFine">
+<form action="changeFine.jsp" method="get" name="changeFine">
 
 			<input type="text" name="poster" value="changeFine"
 				style="position: absolute; display: none" />
@@ -82,7 +82,7 @@ if(session.getAttribute("other").equals("other_fine")){
 if(session.getAttribute("other").equals("other_period")){
 %>	
 <a style="margin-top:5vh;;font-size:3vh;font-weight:bold">period:<% %></a>
-<form action="../test.jsp" method="get" name="changePeriod">
+<form action="changePeriod.jsp" method="get" name="changePeriod">
 
 			<input type="text" name="poster" value="changePeriod"
 				style="position: absolute; display: none" />
@@ -107,7 +107,7 @@ if(session.getAttribute("other").equals("other_period")){
 if(session.getAttribute("other").equals("other_deposit")){
 %>	
 <a style="margin-top:5vh;;font-size:3vh;font-weight:bold">deposit:<% %></a>
-<form action="../test.jsp" method="get" name="changePeriod">
+<form action="changeDeposit.jsp" method="get" name="changePeriod">
 
 			<input type="text" name="poster" value="changePeriod"
 				style="position: absolute; display: none" />
@@ -304,7 +304,7 @@ function tip(e){
 }
 	<%if (session.getAttribute("result") != null) {%>
 		openW1();
-		  <%if (session.getAttribute("result") == "success") {%>
+		  <%if (session.getAttribute("result") == "sucess") {%>
 			setTimeout("tip(\"sucess !\")","500");
 			  <%} else {%>
 				setTimeout("tip(\"fail !\")","500");
