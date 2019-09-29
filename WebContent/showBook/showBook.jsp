@@ -7,12 +7,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link type="text/css" rel="stylesheet" href="../css/index.css">
+<link type="text/css" rel="stylesheet" href="../lib/layui/css/layui.css">
 <title>book</title>
 <style>
 .librarianOptions{
  display:none;
  float:right;
 
+}
+.librarianOptions2{
+display:none;
+float:right;
 }
 #showBook span {
 	font-size: 2.5vh;
@@ -71,7 +76,9 @@ a {
 	text-align: center;
 	margin-left: 2vw;
 }
-
+.bm{
+margin-left: 2vw;
+}
 .by {
 	height: 7vh;
 	width: 15vw;
@@ -140,12 +147,14 @@ a {
 			<span>author :</span> <a> <%
 					out.print("test");
 				%>
-			</a> 
+			</a>
+			<a class="librarianOptions2" style="color:red;"href="javascript:openW1()">options</a> 
 			<a class="librarianOptions" style="color:red;"href="javascript:changeValue('Author')">change author</a>
 			<br> <span>category :</span> <a> <%
 					out.print("test");
 				%>
 			</a>
+	
 			<a class="librarianOptions" style="color:red;"href="javascript:changeValue('Category')">change category</a>
 			 <br> <span>press :</span> <a> <%
 					out.print("test");
@@ -192,7 +201,9 @@ a {
 
 	<!--掩盖-->
 	<div class="hide" id="hide" style=""></div>
-	<div id="window1" class="login"
+	
+	<%if(session.getAttribute("role")!=null &&session.getAttribute("role").equals("reader")){ %>
+<div id="window1" class="login"
 		style="border-radius: 1vh; overflow-y: auto; z-index: 11; background: #FAF79F; top: 16vh; left: 15vw; width: 70vw; height: 60vh; display: none;">
 
 		<div class="list">
@@ -236,8 +247,58 @@ a {
 			</div>
 		</div>
 
+<%}%>
+	
 
-	</div>
+<%if(session.getAttribute("role")!=null &&session.getAttribute("role").equals("librarian")){ %>
+	
+
+
+
+
+<div id="window1" class="login"
+		style="border-radius: 1vh; overflow-y: auto; z-index: 11; background: #FAF79F; top: 16vh; left: 15vw; width: 70vw; height: 60vh; display: none;">
+
+		<div class="list">
+			<div class="head1">
+				<table cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr>
+							<td class="by"><a style="font-weight: 700">BookId</a></td>
+							<td class="by"><a style="font-weight: 700">Position</a></td>
+							<td class="by"><a style="font-weight: 700">change</a></td>
+							<td class="by"><a style="font-weight: 700">delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</div>
+			<div class="bm">
+				<table cellspacing="0" cellpadding="0" id="table1">
+
+					<tbody id="?">
+						<tr>
+							<td class="by"><a href="">1</a></td>
+							<td class="by"><a href="">floor 1</a></td>
+							<td class="by"><a href="javascript:changeBook()" style="color: green">change</a></td>
+							<td class="by"><a href="test.jsp?bookid=..."
+								onClick="{if(confirm('ARE YOU SURE TO DELETE THIS BOOK ?')){return ture;}return false;}"
+								style="color: red;">delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+				<br> <br>
+			</div>
+		</div>
+
+<%}%>
+
+
+
+
+
+	
+	
 	<div class="close" id="closeButton" style="display: none;">
 		<a href="javascript: closeW()"> <img class="img09"
 			src="../imgs/close.png" alt="">
@@ -250,6 +311,7 @@ a {
 <script src="../lib/jquery/jquery-1.9.1.js"></script>
 <script src="../lib/jquery/jquery.min.js"></script>
 <script src="../lib/layer/layer.js"></script>
+<script src="../lib/layui/layui.js"></script>
 <script type="text/javascript">
 function changeValue(el){
 	if(el!='Introduction'){
@@ -269,6 +331,95 @@ function changeValue(el){
 	
 	
 	
+	
+}
+function changeBook(){
+	layer.open({
+		  type: 1,
+		  skin: 'layui-layer-rim', //加上边框
+		  area: ['50vw', '75vh'], //宽高
+		  title:"Add Books",
+		  content: `
+		  <br>
+			  <form class="layui-form" action="../test.jsp" method="post" >
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book name</label>
+			    <div class="layui-input-block">
+			      <input value="<% %>"  type="text" style="width:400px" name="name" required  lay-verify="required"  placeholder="input book name" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book id</label>
+			    <div class="layui-input-block">
+			      <input value="<% %>" type="text" style="width:400px" name="bookid" required  lay-verify="required" placeholder="input book id" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book press</label>
+			    <div class="layui-input-block">
+			      <input value="<% %>" type="text" style="width:400px" name="press" required  lay-verify="required" placeholder="input book press" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book price</label>
+			    <div class="layui-input-block">
+			      <input value="<% %>" type="text" style="width:400px" name="price" required  lay-verify="required" placeholder="input book price" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book category</label>
+			    <div class="layui-input-block">
+			      <input value="<% %>" type="text" style="width:400px" name="category" required  lay-verify="required" placeholder="input book category" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book position</label>
+			    <div class="layui-input-block">
+			      <input value="<% %>" type="text" style="width:400px" name="position"   lay-verify="required" placeholder="input book position" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">ISBN</label>
+			    <div class="layui-input-block">
+			      <input value="<% %>" type="text" style="width:400px" name="ISBN" required  lay-verify="required" placeholder="input book ISBN" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  
+			  
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book price</label>
+			    <div class="layui-input-block">
+			      <input value="<% %>"  type="text" style="width:400px" name="bookPrice" required  lay-verify="required" placeholder="input book price" autocomplete="off" class="layui-input">
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book description</label>
+			    <div class="layui-input-block">
+			      <textarea  type="text" style="" name="description" required  lay-verify="required" placeholder="input book description" autocomplete="off" class="layui-textarea "><% %></textarea>
+			    </div>
+			  </div>
+			  
+			  <div class="layui-form-item">
+			    <div class="layui-input-block">
+			      <button class="layui-btn" lay-submit lay-filter="formDemo">submit</button>
+			      <button type="reset" class="layui-btn layui-btn-primary">reset</button>
+			    </div>
+			  </div>
+			</form>
+			 
+`
+       
+		});
 	
 }
  $(function(){
@@ -296,27 +447,6 @@ function closeW(){
 	 $("#closeButton").css({"display":"none"});
 }
 
-
-/* 这段是重复的样例数据，可删 */
-$(function(){
-
-    for(var i=0;i<20;i++){
-        $(`</tbody>
-				<tbody>
-				<tr>
-					<td class=\"by\"><a href=\"\">`+i+`</a></td>
-					<td class=\"by\"><a href=\"\">floor 1</a></td>
-					 <td class=\"by\"><a href=\"\"style=\"color:green\">available</a></td>
-	                    <td class=\"by\"><a href=\"test.jsp?bookid=...\" onClick=\"{if(confirm('ARE YOU SURE TO RESERVE THIS BOOK ?')){return ture;}return false;}\" style=\"color:blue;\">reserve</a></td>
-				</tr>
-			
-			</tbody>`).appendTo($('#table1'));
-    }
-        
-});
-
-
-
 <%if(session.getAttribute("role")!=null &&session.getAttribute("role").equals("reader")&&( request.getParameter("option")==null||!request.getParameter("option").equals("view"))){ %>
 $(function(){
 	$("#reserveButton").css({
@@ -328,7 +458,10 @@ $(function(){
 
 <%if(session.getAttribute("role")!=null &&session.getAttribute("role").equals("librarian")){ %>
 $(function(){
-	$(".librarianOptions").css({
+	/* $(".librarianOptions").css({
+		"display":"inline"
+	}) */
+	$(".librarianOptions2").css({
 		"display":"inline"
 	})
 })

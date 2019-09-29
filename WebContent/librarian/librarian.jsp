@@ -394,22 +394,22 @@ function AddBooks(){
 	layer.open({
 		  type: 1,
 		  skin: 'layui-layer-rim', //加上边框
-		  area: ['70vw', '75vh'], //宽高
+		  area: ['50vw', '75vh'], //宽高
 		  title:"Add Books",
 		  content: `
 		  <br>
 			  <form class="layui-form" action="../test.jsp" method="post" >
 			  <div class="layui-form-item">
-			    <label class="layui-form-label">reader name</label>
+			    <label class="layui-form-label">book name</label>
 			    <div class="layui-input-block">
-			      <input type="text" style="width:400px" name="name" required  lay-verify="required"  autocomplete="off" class="layui-input">
+			      <input type="text" style="width:400px" name="name" required  lay-verify="required"  placeholder="input book name" autocomplete="off" class="layui-input">
 			    </div>
 			  </div>
 
 			  <div class="layui-form-item">
 			    <label class="layui-form-label">book id</label>
 			    <div class="layui-input-block">
-			      <input type="text" style="width:400px" name="bookid" required  lay-verify="required" autocomplete="off" class="layui-input">
+			      <input type="text" style="width:400px" name="bookid" required  lay-verify="required" placeholder="input book id" autocomplete="off" class="layui-input">
 			    </div>
 			  </div>
 			  
@@ -459,6 +459,12 @@ function AddBooks(){
 			    </div>
 			  </div>
 			  
+			  <div class="layui-form-item">
+			    <label class="layui-form-label">book description</label>
+			    <div class="layui-input-block">
+			      <textarea  type="text" style="" name="description" required  lay-verify="required" placeholder="input book description" autocomplete="off" class="layui-textarea "></textarea>
+			    </div>
+			  </div>
 			  
 			  <div class="layui-form-item">
 			    <div class="layui-input-block">
