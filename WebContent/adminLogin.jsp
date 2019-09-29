@@ -19,7 +19,7 @@
 		}
 		else
 		{
-			String script = "<script>alert('用户名或密码错误，请重新登陆');location.href='administratorLoginPage.jsp'</script>";
+			String script = "<script>alert('Invalid account or password');location.href='administratorLoginPage.jsp'</script>";
 			response.getWriter().println(script);
 		}
 	 %>
