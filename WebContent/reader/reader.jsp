@@ -42,15 +42,14 @@
 
 <!-- 导航菜单 -->
 	<%
-		if (session.getAttribute("role") == null) {
 			session.setAttribute("role", "reader");
-		}
+
 	%>
 	<jsp:include page="../include/header.jsp" flush="true" />
 	<%
-		   
+		   if(session.getAttribute("menu")==null){
 			session.setAttribute("menu", "searchBook");
-
+		   }
 	%>
 	<div class="menu"
 		style="position: fixed; z-index: 10; width: 100vw; height: 5vh; top: 15vh; background: #A9CABC; text-align: left; line-height: 5vh;">
