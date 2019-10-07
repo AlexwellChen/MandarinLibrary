@@ -34,10 +34,11 @@
         <div class="inputArea" style="margin-top:13vh;">
             <input type="text" name="username" placeholder=" please input your username" class="inputbar" id="username"autofocus>
         </div>
+        <a style="color:red" id="tip1"></a>
         <div class="inputArea">
             <input type="password" name="psd" placeholder=" please input your password" class="inputbar" id="psd">
         </div>
-
+		<a style="color:red" id="tip2"></a><br>
         <div class="loginbar" id="loginbar"  onclick="sel()">
             <a   class="login_1">login</a>
         </div>
@@ -49,9 +50,34 @@
 </body>
 <script src="lib/jquery/jquery-1.9.1.js"></script>
 <script type="text/javascript">
- function sel(){
+function sel(){
+	 if(check()){
 	 document.account.submit();
- }
+	 }
+}
+
+function check(){
+	 var username=$("#username").val();
+		var psd=$("#psd").val();	
+		if(username!=null&&username!=""){
+			$("#tip1").html("");
+		}else{
+			$("#tip1").html("please input your username !");
+		}
+		if(psd!=null&&psd!=""){
+			$("#tip2").html("");
+		}else{
+			$("#tip2").html("please input your password !");
+		}
+		
+		if(username!=null&&username!=""&&psd!=null&&psd!=""){
+			return true;
+		}
+		
+		
+	 return false; 
+}
+
  $(function(){
 	 $('#title').html("&nbsp;&nbsp;&nbsp;&nbsp; administrator login")
 	 $('.header').css({"text-align":"center"})
