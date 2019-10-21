@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
-<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
-<%@ page import="tools.*" %>
-<%@ page import="instance.*" %>
+<%@ page import="javax.servlet.http.*,javax.servlet.*"%>
+<%@ page import="tools.*"%>
+<%@ page import="instance.*"%>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,16 +14,19 @@
 <title>administrator</title>
 </head>
 <style>
-a{
-text-decoration:none;
+a {
+	text-decoration: none;
 }
+
 .list {
 	text-align: center;
 	margin-left: 2vw;
 }
-.bm{
-margin-left: 2vw;
+
+.bm {
+	margin-left: 2vw;
 }
+
 .by {
 	height: 7vh;
 	width: 15vw;
@@ -43,20 +46,22 @@ margin-left: 2vw;
 		<a class="m" id="librarian" href="menu.jsp?menu=librarian">&nbsp&nbsplibrarian&nbsp&nbsp</a>
 		<a>&nbsp&nbsp|&nbsp&nbsp&nbsp</a> <a class="m" id="other"
 			href="menu.jsp?menu=other">&nbsp&nbspother&nbsp&nbsp</a>
+
 	</div>
 	<!-- 背景 -->
 	<div class="background"
-		style="background: url(../imgs/1.jpg); background-size: cover ; top: 20vh; height: 68vh;">
+		style="background: url(../imgs/1.jpg); background-size: cover; top: 20vh; height: 68vh;">
 
 
-<%
+		<%
 			if (session.getAttribute("menu").equals("account")) {
 		%>
 
 
-	<div id="window2" class="login"
-		style="z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
-				<form action="registLibrarian.jsp" method="post" name="changePsd">
+		<div id="window2" class="login"
+			style="z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
+
+			<form action="registLibrarian.jsp" method="post" name="changePsd">
 				<input type="text" name="poster" value="AdminchangePsd"
 					style="position: absolute; display: none" />
 				<div class="inputArea"
@@ -72,128 +77,198 @@ margin-left: 2vw;
 						name="Password" id="Password"
 						placeholder=" please input your password" class="inputbar" />
 				</div>
-				<input type="submit" value="submit" class="layui-btn" style="margin-top: 4vh">
-		</form>
-	</div>
+				<input type="submit" value="submit" class="layui-btn"
+					style="margin-top: 4vh">
+			</form>
+		</div>
 
 
 
 
 
-<%
+		<%
 			}
 		%>
-		
-		
-	
-	
-	
-	
-	<%
+
+
+
+
+
+
+		<%
 			if (session.getAttribute("menu").equals("librarian")) {
 		%>
 
 
-	<div id="window2" class="login"
-		style="overflow-y: auto;z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
-		
-		
-		<div class="list">
-			<div class="head1">
-				<table cellspacing="0" cellpadding="0">
-					<tbody>
-						<tr>
-							<td class="by"><a style="font-weight: 700">librarian name</a></td>
-							<td class="by"><a style="font-weight: 700">change password</a></td>
-							<td class="by"><a style="font-weight: 700">reset</a></td>
-							<td class="by"><a style="font-weight: 700">delete</a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+		<div id="window2" class="login"
+			style="overflow-y: auto; z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
+			<br>
+			<form class="layui-form" action="searchLibrarian.jsp" method="get">
+				<div class="layui-form-item">
+					<label class="layui-form-label">librarian</label>
+					<div class="layui-input-block">
+						<input type="text" style="width: 400px; float: left;" name="name"
+							id="name" lay-verify="required"
+							placeholder="input librarian name" class="layui-input">
+						<button type="submit" class="layui-btn" style="float: left">
+							search
+							</buttton>
+					</div>
+				</div>
+			</form>
+
+
+			<div class="list">
+				<div class="head1">
+					<table cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td class="by"><a style="font-weight: 700">librarian
+										name</a></td>
+								<td class="by"><a style="font-weight: 700">change
+										password</a></td>
+								<td class="by"><a style="font-weight: 700">reset</a></td>
+								<td class="by"><a style="font-weight: 700">delete</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="bm">
 				<table cellspacing="0" cellpadding="0" id="table1">
-<% 
-	Connection conn = LibraryAutomation.getInstance().dbInterface();
-	String sql = "SELECT * FROM librarian";//sql statement
-	Statement stmt = conn.createStatement();
-	ResultSet rs = stmt.executeQuery(sql);
-	String acntNum = null;
-	while(rs.next()){
-		acntNum = rs.getString("AcntNum");
+					<% 
+		String librariantarget = (String)session.getAttribute("librarianName");
+					//System.out.println(librariantarget);
+	if(librariantarget == ""||session.getAttribute("librarianName") == null){
+		Connection conn = LibraryAutomation.getInstance().dbInterface();
+		String sql = "SELECT * FROM librarian";//sql statement
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		String acntNum = null;
+		while(rs.next()){
+			acntNum = rs.getString("AcntNum");
 
-%>
+	%>
 					<tbody id="?">
 						<tr>
 							<td class="by"><a href=""><%=acntNum %></a></td>
-							<td class="by"><a href="javascript:changePsd(<%=acntNum %>)" style="color: green">change password</a></td>
-							<td class="by"><a href="resetLibrarian.jsp?name=<%=acntNum %>"
+							<td class="by"><a
+								href="javascript:changePsd('<%=acntNum %>')"
+								style="color: green">change password</a></td>
+							<td class="by"><a
+								href="resetLibrarian.jsp?name=<%=acntNum %>"
 								onClick="{if(confirm('ARE YOU SURE TO RESET THIS Account ?')){return ture;}return false;}"
 								style="color: red;">reset</a></td>
-							<td class="by"><a href="deleteLibrarian.jsp?name=<%=acntNum %>"
+							<td class="by"><a
+								href="deleteLibrarian.jsp?name=<%=acntNum %>"
 								onClick="{if(confirm('ARE YOU SURE TO DELETE THIS Account ?')){return ture;}return false;}"
 								style="color: red;">delete</a></td>
 						</tr>
 					</tbody>
-<%
+					<%
+		}
 	}
-%>
+	else
+	{
+		Connection conn = LibraryAutomation.getInstance().dbInterface();
+		String target = (String)session.getAttribute("librarianName");
+		String sql = "SELECT * FROM librarian where AcntNum = '"+target+"'";//sql statement
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		String acntNum = null;
+		boolean DBempty = rs.next();
+		rs.previous();
+		 if(!DBempty){//查询结果为空
+
+			session.setAttribute("librarianName", "-1");
+		
+			
+		}else
+			while(rs.next()){
+				acntNum = rs.getString("AcntNum");
+				%>
+					<tbody id="?">
+						<tr>
+							<td class="by"><a href=""><%=acntNum %></a></td>
+							<td class="by"><a
+								href="javascript:changePsd('<%=acntNum %>')"
+								style="color: green">change password</a></td>
+							<td class="by"><a
+								href="resetLibrarian.jsp?name=<%=acntNum %>"
+								onClick="{if(confirm('ARE YOU SURE TO RESET THIS Account ?')){return ture;}return false;}"
+								style="color: red;">reset</a></td>
+							<td class="by"><a
+								href="deleteLibrarian.jsp?name=<%=acntNum %>"
+								onClick="{if(confirm('ARE YOU SURE TO DELETE THIS Account ?')){return ture;}return false;}"
+								style="color: red;">delete</a></td>
+						</tr>
+					</tbody>
+					<%
+				}
+	}
+			%>
+
 				</table>
 				<br> <br>
 			</div>
+
+
+
 		</div>
-		
-		
-		
+
+
+
 	</div>
 
 
 
 
 
-<%
+	<%
 			}
 		%>
-		
-	
-	
-	
-	
-	
-	
-	
-		
-		
 
-<%
+
+
+
+
+
+
+
+
+
+
+	<%
 			if (session.getAttribute("menu").equals("other")) {
 		if (session.getAttribute("other") == null) {
 			session.setAttribute("other", "other_fine");
 		}
 	%>
-<div class="menu login" style="position: absolute; z-index: 10; width: 18vw; height: 60vh; left:1vw;top: 4vh; background: #A9CABC; text-align: center; line-height: 5vh;">
-<a class="m" id="other_fine"
-			href="menu.jsp?menu=other&other=other_fine">&nbsp&nbspSet book fine value&nbsp&nbsp</a><br>
-<a class="m" id="other_period"
-			href="menu.jsp?menu=other&other=other_period">&nbsp&nbspSet book return period&nbsp&nbsp</a>
+	<div class="menu login"
+		style="position: absolute; z-index: 10; width: 18vw; height: 60vh; left: 1vw; top: 4vh; background: #A9CABC; text-align: center; line-height: 5vh;">
+		<a class="m" id="other_fine"
+			href="menu.jsp?menu=other&other=other_fine">&nbsp&nbspSet book
+			fine value&nbsp&nbsp</a><br> <a class="m" id="other_period"
+			href="menu.jsp?menu=other&other=other_period">&nbsp&nbspSet book
+			return period&nbsp&nbsp</a> <a class="m" id="other_deposit"
+			href="menu.jsp?menu=other&other=other_deposit">&nbsp&nbspSet book
+			deposit&nbsp&nbsp</a>
 
-<a class="m" id="other_deposit"
-			href="menu.jsp?menu=other&other=other_deposit">&nbsp&nbspSet book  deposit&nbsp&nbsp</a>
-
-</div>
-
-
-    <div id="other_div" class="login" style="overflow:auto;z-index:11;background: rgb(235,213,190, 0.9);top:4vh;left:24vw;width:70vw;height:60vh;">
+	</div>
 
 
+	<div id="other_div" class="login"
+		style="overflow: auto; z-index: 11; background: rgb(235, 213, 190, 0.9); top: 4vh; left: 24vw; width: 70vw; height: 60vh;">
 
-<%
+
+
+		<%
 if(session.getAttribute("other").equals("other_fine")){
-%>	
-<a style="position:absolute;top:10vh;left:28vw;font-size:3vh;font-weight:bold">fine:<%=LibraryAutomation.getInstance().getBookFineValue()%></a>
-			
-<form action="changeFine.jsp" method="get" name="changeFine">
+%>
+		<a
+			style="position: absolute; top: 10vh; left: 28vw; font-size: 3vh; font-weight: bold">fine:<%=LibraryAutomation.getInstance().getBookFineValue()%></a>
+
+		<form action="changeFine.jsp" method="get" name="changeFine">
 
 			<input type="text" name="poster" value="changeFine"
 				style="position: absolute; display: none" />
@@ -208,17 +283,18 @@ if(session.getAttribute("other").equals("other_fine")){
 				href="javascript:submitChangeFine()"
 				style="font-size: 2vh; background: rgba(76, 145, 224, 0.877); border-radius: 1.5vh; color: white; width: 6vw; height: 4vh; position: absolute; top: 35vh; left: 33vw; line-height: 4vh; text-decoration: none;">submit</a>
 		</form>
-<% 	
+		<% 	
 };
 %>
 
 
 
-<% 
+		<% 
 if(session.getAttribute("other").equals("other_period")){
-%>	
-<a style="position:absolute;top:10vh;left:27vw;font-size:3vh;font-weight:bold">period:<%=LibraryAutomation.getInstance().getBookReturnPeriod() %></a>
-<form action="changePeriod.jsp" method="get" name="changePeriod">
+%>
+		<a
+			style="position: absolute; top: 10vh; left: 27vw; font-size: 3vh; font-weight: bold">period:<%=LibraryAutomation.getInstance().getBookReturnPeriod() %></a>
+		<form action="changePeriod.jsp" method="get" name="changePeriod">
 
 			<input type="text" name="poster" value="changePeriod"
 				style="position: absolute; display: none" />
@@ -234,16 +310,17 @@ if(session.getAttribute("other").equals("other_period")){
 				style="font-size: 2vh; background: rgba(76, 145, 224, 0.877); border-radius: 1.5vh; color: white; width: 6vw; height: 4vh; position: absolute; top: 35vh; left: 33vw; line-height: 4vh; text-decoration: none;">submit</a>
 		</form>
 
-<% 	
+		<% 	
 };
 %>
 
 
-<% 
+		<% 
 if(session.getAttribute("other").equals("other_deposit")){
-%>	
-<a style="position:absolute;top:10vh;left:27vw;font-size:3vh;font-weight:bold">deposit:<%=LibraryAutomation.getInstance().getReaderSecurityDeposit() %></a>
-<form action="changeDeposit.jsp" method="get" name="changeDeposit">
+%>
+		<a
+			style="position: absolute; top: 10vh; left: 27vw; font-size: 3vh; font-weight: bold">deposit:<%=LibraryAutomation.getInstance().getReaderSecurityDeposit() %></a>
+		<form action="changeDeposit.jsp" method="get" name="changeDeposit">
 
 			<input type="text" name="poster" value="changeDeposit"
 				style="position: absolute; display: none" />
@@ -259,15 +336,15 @@ if(session.getAttribute("other").equals("other_deposit")){
 				style="font-size: 2vh; background: rgba(76, 145, 224, 0.877); border-radius: 1.5vh; color: white; width: 6vw; height: 4vh; position: absolute; top: 35vh; left: 33vw; line-height: 4vh; text-decoration: none;">submit</a>
 		</form>
 
-<% 	
+		<% 	
 };
 %>
 
 
 
 
-</div>
-		<%
+	</div>
+	<%
 			} ;
 		%>
 
@@ -289,43 +366,39 @@ if(session.getAttribute("other").equals("other_deposit")){
 
 
 
-
-
-
-
-		<jsp:include page="../include/footer.jsp" flush="true" />
+	<jsp:include page="../include/footer.jsp" flush="true" />
 	</div>
 
 
 
 
-<!--掩盖-->
+	<!--掩盖-->
 	<div class="hide" id="hide"></div>
-<div id="window1" class="login"
+	<div id="window1" class="login"
 		style="z-index: 11; background: #FAF79F; top: 14vh; left: 15vw; width: 70vw; height: 60vh; display: none;">
 		<form action="changeAdminPassword.jsp" method="post" name="changePsd">
-				<input type="text" name="poster" value="AdminchangePsd"
-					style="position: absolute; display: none" />
-				<div class="inputArea"
-					style="width: 40vw; margin-left: 15vw; margin-top: 10vh">
-					<input style="width: 40vw; background: white" type="password"
-						name="oldPsd" id="oldPsd"
-						placeholder=" please input your old password" class="inputbar" />
+			<input type="text" name="poster" value="AdminchangePsd"
+				style="position: absolute; display: none" />
+			<div class="inputArea"
+				style="width: 40vw; margin-left: 15vw; margin-top: 10vh">
+				<input style="width: 40vw; background: white" type="password"
+					name="oldPsd" id="oldPsd"
+					placeholder=" please input your old password" class="inputbar" />
 
-				</div>
-				<div class="inputArea"
-					style="width: 40vw; margin-left: 15vw; margin-top: 5vh">
-					<input style="width: 40vw; background: white" type="password"
-						name="newPsd" id="newPsd"
-						placeholder=" please input your new password" class="inputbar" />
+			</div>
+			<div class="inputArea"
+				style="width: 40vw; margin-left: 15vw; margin-top: 5vh">
+				<input style="width: 40vw; background: white" type="password"
+					name="newPsd" id="newPsd"
+					placeholder=" please input your new password" class="inputbar" />
 
-				</div>
-				<div class="inputArea"
-					style="width: 40vw; margin-left: 15vw; margin-top: 5vh">
-					<input style="width: 40vw; background: white" type="password"
-						name="newPsd1" id="newPsd1"
-						placeholder=" please confirm your new password" class="inputbar" />
-				</div>
+			</div>
+			<div class="inputArea"
+				style="width: 40vw; margin-left: 15vw; margin-top: 5vh">
+				<input style="width: 40vw; background: white" type="password"
+					name="newPsd1" id="newPsd1"
+					placeholder=" please confirm your new password" class="inputbar" />
+			</div>
 			<a style="color: red" class="psdTips"></a> <a
 				href="javascript:submitPsd()"
 				style="font-size: 2vh; background: rgba(76, 145, 224, 0.877); border-radius: 1.5vh; color: white; width: 6vw; height: 4vh; position: absolute; top: 45vh; left: 25vw; line-height: 4vh; text-decoration: none;">submit</a>
@@ -352,7 +425,7 @@ function changePsd(el){
 		    	layer.msg('please input the SAME password !');
 		    	setTimeout("changePsd()","1000");
 		    }else{
-		    	window.location.href="../test.jsp?newpsd"+pass_1+"&name"+el;
+		    	window.location.href="changeLibrarianPassword.jsp?newpsd="+pass_1+"&name="+el;
 		    }
 		    
 		  });
@@ -479,14 +552,21 @@ function tip(e){
 	alert(e);
 }
 	<%if (session.getAttribute("result") != null) {%>
-		openW1();
-		  <%if (session.getAttribute("result") == "sucess") {%>
+	
+		  <%if (session.getAttribute("result") == "success") {%>
 			setTimeout("tip(\"sucess !\")","500");
 			  <%} else {%>
-				setTimeout("tip(\"fail !\")","500");
+				setTimeout("tip(\"<%=session.getAttribute("result")%>\")","500");
 				  <%}
 				session.setAttribute("result", null);
 			}%>
+			
+			<% if(session.getAttribute("librarianName").equals("-1")){
+				session.setAttribute("librarianName","");
+				session.setAttribute("result","???");
+			%>
+			window.location.reload();
+			<%}%>
 
 </script>
 </html>

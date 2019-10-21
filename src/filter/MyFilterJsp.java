@@ -5,7 +5,6 @@ package filter;
 *
 */
 import java.io.IOException;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -30,7 +29,7 @@ public class MyFilterJsp implements Filter{
     		chain.doFilter(request, response);
     		} else {
     			System.out.println(servletPath);
-    		resp.sendRedirect("index.jsp");//跳回首页
+    		resp.sendRedirect("../index.jsp");//跳回首页
     		}
     		} else {
     		chain.doFilter(request, response);
