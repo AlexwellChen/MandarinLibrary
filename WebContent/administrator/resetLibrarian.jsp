@@ -11,7 +11,7 @@
 	<%
 		String acntNum = new String(request.getParameter("name").getBytes("UTF-8"),"UTF-8");//得到账户
 		Admin.recoveryLibrarian(acntNum);
-		String script = "<script>alert('Reset Success!');location.href='administrator.jsp'</script>";
+		String script = "<script>location.href='administrator.jsp?tip=4'</script>";
 		response.getWriter().println(script);
 	
 	%>

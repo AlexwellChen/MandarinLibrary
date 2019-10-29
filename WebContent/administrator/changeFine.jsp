@@ -12,7 +12,7 @@
 		String newFine = new String(request.getParameter("newFine").getBytes("UTF-8"),"UTF-8");//新周期
 		int Fine = Integer.parseInt(newFine);
 		Admin.setFineValue(Fine);
-		String script = "<script>alert('set success');location.href='administrator.jsp'</script>";
+		String script = "<script>location.href='administrator.jsp?tip=1'</script>";
 		response.getWriter().println(script);
 	%>
 </body>

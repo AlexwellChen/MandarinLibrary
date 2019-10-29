@@ -12,7 +12,7 @@
 			String newPeriod = new String(request.getParameter("newPeriod").getBytes("UTF-8"),"UTF-8");//新周期
 			int Period = Integer.parseInt(newPeriod);
 			Admin.setReturnPeriod(Period);
-			String script = "<script>alert('set success');location.href='administrator.jsp'</script>";
+			String script = "<script>location.href='administrator.jsp?tip=1'</script>";
 			response.getWriter().println(script);
 		%>
 </body>

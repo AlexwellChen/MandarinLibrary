@@ -61,22 +61,25 @@ a {
 		<div id="window2" class="login"
 			style="z-index: 11; background: #FAF79F; top: 4vh; left: 15vw; width: 70vw; height: 60vh; display: block;">
 
-			<form action="registLibrarian.jsp" method="post" name="changePsd">
-				<input type="text" name="poster" value="AdminchangePsd"
-					style="position: absolute; display: none" />
+			<form action="registLibrarian.jsp" method="post" onSubmit="return checkRegistLibrarian()">
 				<div class="inputArea"
 					style="width: 40vw; margin-left: 15vw; margin-top: 10vh">
 					<input style="width: 40vw; background: white" type="text"
 						name="acntNum" id="acntNum"
-						placeholder=" please input your account number" class="inputbar" />
+						placeholder=" please input your account number , at least 6 letters or numbers" class="inputbar" />
 
 				</div>
 				<div class="inputArea"
 					style="width: 40vw; margin-left: 15vw; margin-top: 5vh">
 					<input style="width: 40vw; background: white" type="password"
 						name="Password" id="Password"
-						placeholder=" please input your password" class="inputbar" />
+						placeholder=" please input your password , at least 6 letters or numbers" class="inputbar" />
 				</div>
+				<br>
+				<br>
+				<a style="color: red" class="registTips"></a>
+				<br>
+				
 				<input type="submit" value="submit" class="layui-btn"
 					style="margin-top: 4vh">
 			</form>
@@ -218,7 +221,7 @@ a {
 
 
 
-	</div>
+	
 
 
 
@@ -269,9 +272,6 @@ if(session.getAttribute("other").equals("other_fine")){
 			style="position: absolute; top: 10vh; left: 28vw; font-size: 3vh; font-weight: bold">fine:<%=LibraryAutomation.getInstance().getBookFineValue()%></a>
 
 		<form action="changeFine.jsp" method="get" name="changeFine">
-
-			<input type="text" name="poster" value="changeFine"
-				style="position: absolute; display: none" />
 			<div class="inputArea"
 				style="width: 40vw; margin-left: 15vw; margin-top: 20vh">
 				<input style="width: 40vw; background: white" type="text"
@@ -295,9 +295,6 @@ if(session.getAttribute("other").equals("other_period")){
 		<a
 			style="position: absolute; top: 10vh; left: 27vw; font-size: 3vh; font-weight: bold">period:<%=LibraryAutomation.getInstance().getBookReturnPeriod() %></a>
 		<form action="changePeriod.jsp" method="get" name="changePeriod">
-
-			<input type="text" name="poster" value="changePeriod"
-				style="position: absolute; display: none" />
 			<div class="inputArea"
 				style="width: 40vw; margin-left: 15vw; margin-top: 20vh">
 				<input style="width: 40vw; background: white" type="text"
@@ -321,9 +318,6 @@ if(session.getAttribute("other").equals("other_deposit")){
 		<a
 			style="position: absolute; top: 10vh; left: 27vw; font-size: 3vh; font-weight: bold">deposit:<%=LibraryAutomation.getInstance().getReaderSecurityDeposit() %></a>
 		<form action="changeDeposit.jsp" method="get" name="changeDeposit">
-
-			<input type="text" name="poster" value="changeDeposit"
-				style="position: absolute; display: none" />
 			<div class="inputArea"
 				style="width: 40vw; margin-left: 15vw; margin-top: 20vh">
 				<input style="width: 40vw; background: white" type="text"
@@ -377,28 +371,28 @@ if(session.getAttribute("other").equals("other_deposit")){
 	<div id="window1" class="login"
 		style="z-index: 11; background: #FAF79F; top: 14vh; left: 15vw; width: 70vw; height: 60vh; display: none;">
 		<form action="changeAdminPassword.jsp" method="post" name="changePsd">
-			<input type="text" name="poster" value="AdminchangePsd"
-				style="position: absolute; display: none" />
+			
 			<div class="inputArea"
 				style="width: 40vw; margin-left: 15vw; margin-top: 10vh">
 				<input style="width: 40vw; background: white" type="password"
 					name="oldPsd" id="oldPsd"
-					placeholder=" please input your old password" class="inputbar" />
+					placeholder=" please input your old password" class="inputbar"/>
 
 			</div>
 			<div class="inputArea"
 				style="width: 40vw; margin-left: 15vw; margin-top: 5vh">
 				<input style="width: 40vw; background: white" type="password"
 					name="newPsd" id="newPsd"
-					placeholder=" please input your new password" class="inputbar" />
+					placeholder=" please input your new password" class="inputbar"/>
 
 			</div>
 			<div class="inputArea"
 				style="width: 40vw; margin-left: 15vw; margin-top: 5vh">
 				<input style="width: 40vw; background: white" type="password"
 					name="newPsd1" id="newPsd1"
-					placeholder=" please confirm your new password" class="inputbar" />
+					placeholder=" please confirm your new password" class="inputbar"/>
 			</div>
+			<br>
 			<a style="color: red" class="psdTips"></a> <a
 				href="javascript:submitPsd()"
 				style="font-size: 2vh; background: rgba(76, 145, 224, 0.877); border-radius: 1.5vh; color: white; width: 6vw; height: 4vh; position: absolute; top: 45vh; left: 25vw; line-height: 4vh; text-decoration: none;">submit</a>
@@ -508,9 +502,51 @@ function changPsdW(){
 	 $("#window1").css({"display":"block"});
 }
 function closeW(){
+	ResetPsdTips();
+	document.changePsd.reset();
 	 $("#hide").css({"display":"none"});
 	 $("#window1").css({"display":"none"});
+	 
 }
+function ResetPsdTips(){
+	$(".psdTips").html("");
+}
+$("#oldPsd").bind("input propertychange",function(event){
+	ResetPsdTips();
+});
+$("#newPsd").bind("input propertychange",function(event){
+	ResetPsdTips();
+});
+$("#newPsd1").bind("input propertychange",function(event){
+	ResetPsdTips();
+});
+function checkRegistLibrarian(){
+	//acntNum
+	//Password
+	if($("#acntNum").val()==""){
+		$(".registTips").html("no acntNum");
+		return false;
+	}
+	if($("#Password").val()==""){
+		$(".registTips").html("no password");
+		return false;
+	}
+	if(!$("#acntNum").val().match(/^[a-z0-9]{6,}$/i)){
+		$(".registTips").html("please input correct acntNum");
+		return false;
+	}
+	if(!$("#Password").val().match(/^[a-z0-9]{6,}$/i)){
+		$(".registTips").html("please input correct password");
+		return false;
+	}
+	return true;
+}
+$("#acntNum").bind("input propertychange",function(event){
+	$(".registTips").html("");
+});
+$("#Password").bind("input propertychange",function(event){
+	$(".registTips").html("");
+});
  $(function(){
 	 $('#title').html("&nbsp;&nbsp;&nbsp;&nbsp; MandarinLibrary &nbsp;&nbsp;&nbsp;&nbsp;☞&nbsp;&nbsp;&nbsp;&nbsp;administrator")
 	 $('.header').css({
@@ -567,6 +603,31 @@ function tip(e){
 			%>
 			window.location.reload();
 			<%}%>
+			
+			
+			
+//获取url中的参数
+			function getUrlParam(name) {
+			    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+			    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+			    if (r != null) return unescape(r[2]); return null; //返回参数值
+			}
+			window.onload=function(){
+				switch(getUrlParam("tip")){
+				case "0":setTimeout("alert('Change Success!')",500);break;
+				case "1":setTimeout("alert('set success')",500);break;
+				case "2":setTimeout("alert('Delete Success!')",500);break;
+				case "3":setTimeout("alert('Regist success!')",500);break;
+				case "4":setTimeout("alert('Reset Success!')",500);break;
+				case "5":setTimeout("alert('Change Failed!')",500);break;
+				case "6":setTimeout("alert('')",500);break;
+				}
+				var url = window.location.href; 
+				var valiable = url.split("?")[0]; 
+				window.history.pushState({},0,valiable);
+				
+			}
+		
 
 </script>
 </html>

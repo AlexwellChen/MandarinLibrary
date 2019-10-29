@@ -12,7 +12,7 @@
 		String newDeposit = new String(request.getParameter("newDeposit").getBytes("UTF-8"),"UTF-8");//新周期
 		int Deposit = Integer.parseInt(newDeposit);
 		Admin.setSecurityDeposit(Deposit);
-		String script = "<script>alert('set success');location.href='administrator.jsp'</script>";
+		String script = "<script>location.href='administrator.jsp?tip=1'</script>";
 		response.getWriter().println(script);
 	%>
 </body>

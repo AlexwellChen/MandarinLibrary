@@ -12,7 +12,7 @@
 		String accountNum = new String(request.getParameter("acntNum").getBytes("UTF-8"),"UTF-8");//注册用户名
 		String password = new String(request.getParameter("Password").getBytes("UTF-8"),"UTF-8");//注册密码
 		Admin.registerLibrarian(accountNum, password);
-		String script = "<script>alert('Regist success!');location.href='administrator.jsp'</script>";
+		String script = "<script>location.href='administrator.jsp?tip=3'</script>";
 		response.getWriter().println(script);
 	%>
 </body>
