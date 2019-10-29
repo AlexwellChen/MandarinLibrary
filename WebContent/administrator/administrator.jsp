@@ -139,7 +139,7 @@ a {
 					<% 
 		String librariantarget = (String)session.getAttribute("librarianName");
 					//System.out.println(librariantarget);
-	if(librariantarget == ""||session.getAttribute("librarianName") == null){
+	if(session.getAttribute("librarianName") == null||librariantarget.equals("")){
 		Connection conn = LibraryAutomation.getInstance().dbInterface();
 		String sql = "SELECT * FROM librarian";//sql statement
 		Statement stmt = conn.createStatement();
@@ -551,17 +551,17 @@ function closeW(){
 function tip(e){
 	alert(e);
 }
-	<%if (session.getAttribute("result") != null) {%>
+	<%if (session.getAttribute("result") != null&&session.getAttribute("result").equals("")) {%>
 	
-		  <%if (session.getAttribute("result") == "success") {%>
+		  <%if (session.getAttribute("result").equals("success")) {%>
 			setTimeout("tip(\"sucess !\")","500");
 			  <%} else {%>
 				setTimeout("tip(\"<%=session.getAttribute("result")%>\")","500");
 				  <%}
-				session.setAttribute("result", null);
+				session.setAttribute("result", "");
 			}%>
 			
-			<% if(session.getAttribute("librarianName").equals("-1")){
+			<% if(session.getAttribute("librarianName")!=null&&session.getAttribute("librarianName").equals("-1")){
 				session.setAttribute("librarianName","");
 				session.setAttribute("result","???");
 			%>
