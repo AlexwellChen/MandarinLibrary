@@ -77,7 +77,22 @@ function check(){
 		
 	 return false; 
 }
-
+//获取url中的参数
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]); return null; //返回参数值
+}
+window.onload=function(){
+				switch(getUrlParam("tip")){
+				case "0":setTimeout("alert('Change Success!')",500);break;
+				case "1":setTimeout("alert('Invalid account or password')",500);break;
+				}
+				var url = window.location.href; 
+				var valiable = url.split("?")[0]; 
+				window.history.pushState({},0,valiable);
+				
+			}
  $(function(){
 	 $('#title').html("&nbsp;&nbsp;&nbsp;&nbsp; administrator login")
 	 $('.header').css({"text-align":"center"})
@@ -85,5 +100,6 @@ function check(){
 			"display":"block"
 		});
  })
+
 </script>
 </html>

@@ -19,7 +19,7 @@
 		}
 		else
 		{
-			String script = "<script>alert('Invalid account or password');location.href='administratorLoginPage.jsp'</script>";
+			String script = "<script>location.href='administratorLoginPage.jsp?tip=1';</script>";
 			response.getWriter().println(script);
 		}
 	 %>

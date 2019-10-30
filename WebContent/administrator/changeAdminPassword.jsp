@@ -16,13 +16,13 @@
 		if(Admin.login(currentAcntNum, oldPwd))
 		{
 			Admin.changeAdminPwd(currentAcntNum, newPwd);
-			String script = "<script>alert('Change Success!');location.href='../administratorLoginPage.jsp'</script>";
+			String script = "<script>location.href='../administratorLoginPage.jsp?tip=0'</script>";
 			session.invalidate();
 			response.getWriter().println(script);
 		}
 		else
 		{
-			String script = "<script>alert('Change Failed!');location.href='administrator.jsp'</script>";
+			String script = "<script>location.href='administrator.jsp?tip=5'</script>";
 			response.getWriter().println(script);
 		}
 	
